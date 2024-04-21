@@ -29,27 +29,25 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void _updateSelectedIndex(int index) {
-    setState(() {
-      RootIndex.navigationIndex.value = index;
-    });
-  }
+  // void _updateSelectedIndex(int index) {
+  //   setState(() {
+  //     RootIndex.navigationIndex.value = index;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
+        backgroundColor: Colors.grey[300],
         key: _scaffoldKey,
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
           child: CustomAppBar(),
         ),
-        backgroundColor: Colors.grey[300],
         drawer: const CustomDrawer(),
         body: _children[RootIndex.navigationIndex.value],
         bottomNavigationBar: NavigationBar(
-          // onTap: onTabTapped,
-          // currentIndex: RootIndex.navigationIndex.value,
           onDestinationSelected: (int index) {
             setState(() {
               RootIndex.navigationIndex.value = index;

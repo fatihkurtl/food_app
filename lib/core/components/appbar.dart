@@ -14,6 +14,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.grey[300],
       title: Text(
         "Tarifim Olsun",
         style: GoogleFonts.bebasNeue(
@@ -43,7 +44,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         },
       ),
       centerTitle: true,
-      backgroundColor: Colors.grey[300],
+      // backgroundColor: Colors.grey[300],
       // actions: [
       // ActionChip(
       //   label: Text(

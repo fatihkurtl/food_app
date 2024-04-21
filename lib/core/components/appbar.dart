@@ -36,14 +36,14 @@ class _CustomAppBarState extends State<CustomAppBar> {
         // ),
         icon: Icon(
           Icons.menu,
-          color: Colors.deepPurple[100],
+          color: Colors.grey[600],
         ),
         onPressed: () {
           Scaffold.of(context).openDrawer();
         },
       ),
       centerTitle: true,
-      backgroundColor: Colors.deepPurple[300],
+      backgroundColor: Colors.grey[300],
       // actions: [
       // ActionChip(
       //   label: Text(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:food_app/core/models/route_models.dart';
+import 'package:food_app/core/widgets/home/build-card.dart';
 import 'package:food_app/view/recipe_detail.dart';
 // import 'package:food_app/core/components/appbar.dart';
 // import 'package:food_app/core/components/drawer.dart';
@@ -96,28 +97,52 @@ class _HomeViewState extends State<HomeView> {
               ),
             ],
           ),
-          SingleChildScrollView(
+          const SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                buildCard("Burger", "https://static.vecteezy.com/system/resources/thumbnails/019/023/604/small_2x/front-view-tasty-meat-burger-with-cheese-and-salad-free-photo.jpg"),
-                const SizedBox(width: 10),
-                buildCard("Pizza",
-                    "https://www.allrecipes.com/thmb/fFW1o307WSqFFYQ3-QXYVpnFj6E=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/48727-Mikes-homemade-pizza-DDMFS-beauty-4x3-BG-2974-a7a9842c14e34ca699f3b7d7143256cf.jpg"),
-                const SizedBox(width: 10),
-                buildCard("Pasta", "https://savvybites.co.uk/wp-content/uploads/2023/12/Creamy-tomato-pasta-2.jpg"),
-                const SizedBox(width: 10),
-                buildCard("Salad", "https://www.recipetineats.com/wp-content/uploads/2021/08/Garden-Salad_47-SQ.jpg"),
-                const SizedBox(width: 10),
-                buildCard("Burger", "https://static.vecteezy.com/system/resources/thumbnails/019/023/604/small_2x/front-view-tasty-meat-burger-with-cheese-and-salad-free-photo.jpg"),
-                const SizedBox(width: 10),
-                buildCard("Pizza",
-                    "https://www.allrecipes.com/thmb/fFW1o307WSqFFYQ3-QXYVpnFj6E=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/48727-Mikes-homemade-pizza-DDMFS-beauty-4x3-BG-2974-a7a9842c14e34ca699f3b7d7143256cf.jpg"),
-                const SizedBox(width: 10),
-                buildCard("Pasta", "https://savvybites.co.uk/wp-content/uploads/2023/12/Creamy-tomato-pasta-2.jpg"),
-                const SizedBox(width: 10),
-                buildCard("Salad", "https://www.recipetineats.com/wp-content/uploads/2021/08/Garden-Salad_47-SQ.jpg"),
+                BuildCard(
+                  foodName: "Burger",
+                  imageUrl: "https://static.vecteezy.com/system/resources/thumbnails/019/023/604/small_2x/front-view-tasty-meat-burger-with-cheese-and-salad-free-photo.jpg",
+                ),
+                SizedBox(width: 10),
+                BuildCard(
+                  foodName: "Pizza",
+                  imageUrl:
+                      "https://www.allrecipes.com/thmb/fFW1o307WSqFFYQ3-QXYVpnFj6E=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/48727-Mikes-homemade-pizza-DDMFS-beauty-4x3-BG-2974-a7a9842c14e34ca699f3b7d7143256cf.jpg",
+                ),
+                SizedBox(width: 10),
+                BuildCard(
+                  foodName: "Pasta",
+                  imageUrl: "https://savvybites.co.uk/wp-content/uploads/2023/12/Creamy-tomato-pasta-2.jpg",
+                ),
+                SizedBox(width: 10),
+                BuildCard(
+                  foodName: "Salad",
+                  imageUrl: "https://www.recipetineats.com/wp-content/uploads/2021/08/Garden-Salad_47-SQ.jpg",
+                ),
+                SizedBox(width: 10),
+                BuildCard(
+                  foodName: "Burger",
+                  imageUrl: "https://static.vecteezy.com/system/resources/thumbnails/019/023/604/small_2x/front-view-tasty-meat-burger-with-cheese-and-salad-free-photo.jpg",
+                ),
+                SizedBox(width: 10),
+                BuildCard(
+                  foodName: "Pizza",
+                  imageUrl:
+                      "https://www.allrecipes.com/thmb/fFW1o307WSqFFYQ3-QXYVpnFj6E=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/48727-Mikes-homemade-pizza-DDMFS-beauty-4x3-BG-2974-a7a9842c14e34ca699f3b7d7143256cf.jpg",
+                ),
+                SizedBox(width: 10),
+                BuildCard(
+                  foodName: "Pasta",
+                  imageUrl: "https://savvybites.co.uk/wp-content/uploads/2023/12/Creamy-tomato-pasta-2.jpg",
+                ),
+                SizedBox(width: 10),
+                BuildCard(
+                  foodName: "Salad",
+                  imageUrl: "https://www.recipetineats.com/wp-content/uploads/2021/08/Garden-Salad_47-SQ.jpg",
+                ),
               ],
             ),
           ),
@@ -268,61 +293,6 @@ class _HomeViewState extends State<HomeView> {
             },
           ),
         ],
-      ),
-    );
-  }
-
-  Widget buildCard(String foodName, String imageUrl) {
-    return InkWell(
-      onTap: () {
-        if (kDebugMode) {
-          print('Tapped $foodName');
-        }
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const RecipeDetailView(
-              recipeId: 1,
-            ),
-          ),
-        );
-      },
-      child: Container(
-        margin: const EdgeInsets.only(
-          left: 5,
-          right: 5,
-        ),
-        width: 100,
-        height: 100,
-        decoration: BoxDecoration(
-          color: Colors.grey[400],
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-              ),
-              // clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: 70,
-              ),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              foodName,
-              style: GoogleFonts.bebasNeue(
-                fontSize: 15,
-                color: Colors.black,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

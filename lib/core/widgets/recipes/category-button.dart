@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CategoryButton extends StatelessWidget {
+class CategoryButton extends StatefulWidget {
   final String text;
 
   const CategoryButton({
@@ -11,20 +11,27 @@ class CategoryButton extends StatelessWidget {
   });
 
   @override
+  _CategoryButtonState createState() => _CategoryButtonState();
+}
+
+class _CategoryButtonState extends State<CategoryButton> {
+  bool _isPressed = false;
+
+  @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
         if (kDebugMode) {
-          print("Category Button Pressed: $text");
+          print("Selected Category: ${widget.text}");
         }
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-          Colors.grey[500],
+          _isPressed ? Colors.grey[700] : Colors.grey[500],
         ),
       ),
       child: Text(
-        text,
+        widget.text,
         style: GoogleFonts.roboto(
           fontWeight: FontWeight.normal,
           color: Colors.grey[200],

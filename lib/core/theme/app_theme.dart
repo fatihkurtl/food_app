@@ -7,6 +7,7 @@ final ThemeData appThemeData = ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: Colors.grey[300],
     centerTitle: true,
+    elevation: 0,
     titleTextStyle: TextStyle(
       color: Colors.black,
       fontSize: 24,
@@ -16,8 +17,5 @@ final ThemeData appThemeData = ThemeData(
     iconTheme: IconThemeData(
       color: Colors.grey[600],
     ),
-  ),
-  bottomAppBarTheme: BottomAppBarTheme(
-    color: Colors.grey[300],
   ),
 );

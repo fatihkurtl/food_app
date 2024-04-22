@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/core/components/bottom-navigation.dart';
+import 'package:food_app/core/components/bottom_navigation.dart';
 import 'package:get/get.dart';
 
 void main() {

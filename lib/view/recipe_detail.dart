@@ -5,9 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class RecipeDetailView extends StatefulWidget {
   final int recipeId;
+  final String foodName;
   final String imageUrl;
 
-  const RecipeDetailView({super.key, required this.recipeId, required this.imageUrl});
+  const RecipeDetailView({super.key, required this.recipeId, required this.imageUrl, required this.foodName});
 
   @override
   _RecipeDetailViewState createState() => _RecipeDetailViewState();
@@ -58,11 +59,33 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
             Container(
               height: 300,
               width: double.infinity,
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(widget.imageUrl),
                   fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Tarif ID: ${widget.recipeId}",
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Tarif Adı: ${widget.foodName}",
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
               ),
             ),

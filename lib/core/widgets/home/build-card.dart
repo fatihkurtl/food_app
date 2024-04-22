@@ -30,6 +30,7 @@ class _BuildCardState extends State<BuildCard> {
           MaterialPageRoute(
             builder: (context) => RecipeDetailView(
               recipeId: 1,
+              foodName: widget.foodName,
               imageUrl: widget.imageUrl,
             ),
           ),

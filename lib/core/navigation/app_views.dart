@@ -28,6 +28,7 @@ abstract class AppViews {
       name: Routes.recipeDetail,
       page: () => const RecipeDetailView(
         recipeId: 0,
+        foodName: "",
         imageUrl: "",
       ),
     ),

@@ -128,6 +128,7 @@ class _RecipesViewState extends State<RecipesView> {
                         MaterialPageRoute(
                           builder: (context) => RecipeDetailView(
                             recipeId: index,
+                            foodName: "Food",
                             imageUrl: "https://www.recipetineats.com/wp-content/uploads/2021/08/Garden-Salad_47-SQ.jpg",
                           ),
                         ),

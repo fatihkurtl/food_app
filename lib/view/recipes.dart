@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
+import 'package:food_app/core/widgets/recipes/category-button.dart';
 import 'package:food_app/view/recipe_detail.dart';
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:food_app/core/components/appbar.dart';
@@ -49,10 +50,10 @@ class _RecipesViewState extends State<RecipesView> {
             ),
           ),
         ),
-        SingleChildScrollView(
+        const SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Padding(
-            padding: const EdgeInsets.only(
+            padding: EdgeInsets.only(
               left: 8.0,
               right: 8.0,
               bottom: 8.0,
@@ -61,25 +62,45 @@ class _RecipesViewState extends State<RecipesView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                categoryButton('Ana Yemekler'),
-                const SizedBox(width: 10),
-                categoryButton('Çorbalar'),
-                const SizedBox(width: 10),
-                categoryButton('Salatalar'),
-                const SizedBox(width: 10),
-                categoryButton('Kahvaltılıklar'),
-                const SizedBox(width: 10),
-                categoryButton('Tatlılar'),
-                const SizedBox(width: 10),
-                categoryButton('İçecekler'),
-                const SizedBox(width: 10),
-                categoryButton('Vegan / Vejetaryen'),
-                const SizedBox(width: 10),
-                categoryButton('Makarnalar'),
-                const SizedBox(width: 10),
-                categoryButton('Dünya Mutfakları'),
-                const SizedBox(width: 10),
-                categoryButton('Sağlıklı Yemekler'),
+                CategoryButton(
+                  text: 'Ana Yemekler',
+                ),
+                SizedBox(width: 10),
+                CategoryButton(
+                  text: 'Çorbalar',
+                ),
+                SizedBox(width: 10),
+                CategoryButton(
+                  text: 'Salatalar',
+                ),
+                SizedBox(width: 10),
+                CategoryButton(
+                  text: 'Kahvaltılıklar',
+                ),
+                SizedBox(width: 10),
+                CategoryButton(
+                  text: 'Tatlılar',
+                ),
+                SizedBox(width: 10),
+                CategoryButton(
+                  text: 'İçecekler',
+                ),
+                SizedBox(width: 10),
+                CategoryButton(
+                  text: 'Vegan / Vejetaryen',
+                ),
+                SizedBox(width: 10),
+                CategoryButton(
+                  text: 'Makarnalar',
+                ),
+                SizedBox(width: 10),
+                CategoryButton(
+                  text: 'Dünya Mutfakları',
+                ),
+                SizedBox(width: 10),
+                CategoryButton(
+                  text: 'Sağlıklı Tarifler',
+                ),
               ],
             ),
           ),

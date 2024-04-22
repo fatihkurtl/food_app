@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
+import 'package:food_app/view/recipe_detail.dart';
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:food_app/core/components/appbar.dart';
 // import 'package:food_app/core/components/bottom-navigation.dart';
@@ -101,6 +102,11 @@ class _RecipesViewState extends State<RecipesView> {
                       if (kDebugMode) {
                         print('Tapped Recipes $index');
                       }
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const RecipeDetailView(),
+                        ),
+                      );
                     },
                     child: Container(
                       margin: const EdgeInsets.all(5),

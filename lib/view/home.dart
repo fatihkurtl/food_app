@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:food_app/core/models/route_models.dart';
 // import 'package:food_app/core/components/appbar.dart';
 // import 'package:food_app/core/components/drawer.dart';
-import 'package:food_app/view/recipes.dart';
+// import 'package:food_app/view/recipes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeView extends StatefulWidget {
@@ -83,10 +84,12 @@ class _HomeViewState extends State<HomeView> {
                   left: 5,
                 ),
                 child: Text(
-                  "Popüler Tarifler",
-                  style: GoogleFonts.bebasNeue(
-                    fontSize: 30,
+                  "POPÜLER TARİFLER",
+                  style: TextStyle(
                     color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: GoogleFonts.bebasNeue().fontFamily,
                   ),
                 ),
               ),
@@ -127,10 +130,12 @@ class _HomeViewState extends State<HomeView> {
                   left: 5,
                 ),
                 child: Text(
-                  "Tarifler",
-                  style: GoogleFonts.bebasNeue(
-                    fontSize: 30,
+                  "TARİFLER",
+                  style: TextStyle(
                     color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: GoogleFonts.bebasNeue().fontFamily,
                   ),
                 ),
               ),
@@ -138,11 +143,7 @@ class _HomeViewState extends State<HomeView> {
                 padding: const EdgeInsets.only(right: 5),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const RecipesView(),
-                      ),
-                    );
+                    RootIndex.navigationIndex.value = 1;
                   },
                   child: const Text(
                     "Tümünü Gör",

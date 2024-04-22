@@ -71,10 +71,12 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "Tarif ID: ${widget.recipeId}",
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                style: GoogleFonts.roboto(
+                  fontWeight: FontWeight.normal,
                   color: Colors.black,
+                  textStyle: const TextStyle(
+                    fontSize: 24,
+                  ),
                 ),
               ),
             ),
@@ -82,10 +84,12 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "Tarif Adı: ${widget.foodName}",
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                style: GoogleFonts.roboto(
+                  fontWeight: FontWeight.normal,
                   color: Colors.black,
+                  textStyle: const TextStyle(
+                    fontSize: 24,
+                  ),
                 ),
               ),
             ),

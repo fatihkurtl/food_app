@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:food_app/core/models/route_models.dart';
-import 'package:food_app/core/widgets/home/build-card.dart';
+import 'package:food_app/core/widgets/home/build_card.dart';
 import 'package:food_app/view/recipe_detail.dart';
 // import 'package:food_app/core/components/appbar.dart';
 // import 'package:food_app/core/components/drawer.dart';

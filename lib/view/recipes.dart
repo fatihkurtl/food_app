@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
-import 'package:food_app/core/widgets/recipes/category-button.dart';
+import 'package:food_app/core/widgets/recipes/category_button.dart';
 import 'package:food_app/view/recipe_detail.dart';
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:food_app/core/components/appbar.dart';

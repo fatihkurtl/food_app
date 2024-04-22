@@ -3,13 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RecipeDetailView extends StatefulWidget {
-  const RecipeDetailView({super.key});
+  final int recipeId;
+
+  const RecipeDetailView({super.key, required int this.recipeId});
 
   @override
   _RecipeDetailViewState createState() => _RecipeDetailViewState();
 }
 
 class _RecipeDetailViewState extends State<RecipeDetailView> {
+  late int recipeId;
+
+  @override
+  void initState() {
+    super.initState();
+    print("Detail View, Recipe ID: ${widget.recipeId}");
+
+    recipeId = widget.recipeId;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,21 +38,21 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
         ),
         leading: IconButton(
           icon: Icon(
-            Icons.menu,
+            Icons.arrow_back,
             color: Colors.grey[600],
           ),
           onPressed: () {
-            Scaffold.of(context).openDrawer();
+            Navigator.pop(context);
           },
         ),
         centerTitle: true,
       ),
-      body: const Column(
+      body: Column(
         children: [
           SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
+            scrollDirection: Axis.vertical,
             child: Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 left: 8.0,
                 right: 8.0,
                 bottom: 8.0,
@@ -48,7 +60,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
               ),
               child: Row(
                 children: [
-                  Text('Detail View'),
+                  Text('Detail View, Recipe ID: $recipeId'),
                 ],
               ),
             ),

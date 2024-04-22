@@ -26,7 +26,9 @@ abstract class AppViews {
     ),
     GetPage(
       name: Routes.recipeDetail,
-      page: () => const RecipeDetailView(),
+      page: () => const RecipeDetailView(
+        recipeId: 0,
+      ),
     ),
   ];
 }

@@ -102,9 +102,12 @@ class _RecipesViewState extends State<RecipesView> {
                       if (kDebugMode) {
                         print('Tapped Recipes $index');
                       }
-                      Navigator.of(context).push(
+                      Navigator.push(
+                        context,
                         MaterialPageRoute(
-                          builder: (context) => const RecipeDetailView(),
+                          builder: (context) => RecipeDetailView(
+                            recipeId: index,
+                          ),
                         ),
                       );
                     },
@@ -188,7 +191,7 @@ class _RecipesViewState extends State<RecipesView> {
                                 ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),

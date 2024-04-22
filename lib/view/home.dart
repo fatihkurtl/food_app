@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:food_app/core/models/route_models.dart';
+import 'package:food_app/view/recipe_detail.dart';
 // import 'package:food_app/core/components/appbar.dart';
 // import 'package:food_app/core/components/drawer.dart';
 // import 'package:food_app/view/recipes.dart';
@@ -170,6 +171,14 @@ class _HomeViewState extends State<HomeView> {
                   if (kDebugMode) {
                     print('Tapped Recipes $index');
                   }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RecipeDetailView(
+                        recipeId: index,
+                      ),
+                    ),
+                  );
                 },
                 child: Container(
                   margin: const EdgeInsets.all(5),
@@ -200,15 +209,56 @@ class _HomeViewState extends State<HomeView> {
                           ),
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Text(
-                          "Food",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
+                      Padding(
+                        padding: const EdgeInsets.all(0.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: IconButton(
+                                icon: const Icon(
+                                  Icons.bookmark_border,
+                                  color: Colors.black,
+                                ),
+                                tooltip: "Kaydet",
+                                onPressed: () {
+                                  if (kDebugMode) {
+                                    print('Pressed Bookmark');
+                                  }
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Text(
+                                "Food",
+                                style: GoogleFonts.roboto(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  textStyle: const TextStyle(
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: IconButton(
+                                icon: const Icon(
+                                  Icons.share,
+                                  color: Colors.black,
+                                ),
+                                tooltip: "Paylaş",
+                                onPressed: () {
+                                  if (kDebugMode) {
+                                    print('Pressed Share');
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -228,6 +278,14 @@ class _HomeViewState extends State<HomeView> {
         if (kDebugMode) {
           print('Tapped $foodName');
         }
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const RecipeDetailView(
+              recipeId: 1,
+            ),
+          ),
+        );
       },
       child: Container(
         margin: const EdgeInsets.only(

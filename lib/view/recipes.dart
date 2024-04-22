@@ -128,6 +128,7 @@ class _RecipesViewState extends State<RecipesView> {
                         MaterialPageRoute(
                           builder: (context) => RecipeDetailView(
                             recipeId: index,
+                            imageUrl: "https://www.recipetineats.com/wp-content/uploads/2021/08/Garden-Salad_47-SQ.jpg",
                           ),
                         ),
                       );
@@ -223,31 +224,6 @@ class _RecipesViewState extends State<RecipesView> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget categoryButton(String text) {
-    return ElevatedButton(
-      onPressed: () {
-        if (kDebugMode) {
-          print('Pressed $text');
-        }
-      },
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(
-          Colors.grey[500],
-        ),
-      ),
-      child: Text(
-        text,
-        style: GoogleFonts.roboto(
-          fontWeight: FontWeight.normal,
-          color: Colors.grey[200],
-          textStyle: const TextStyle(
-            fontSize: 13,
-          ),
-        ),
-      ),
     );
   }
 }

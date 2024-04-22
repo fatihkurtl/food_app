@@ -15,8 +15,6 @@ class CategoryButton extends StatefulWidget {
 }
 
 class _CategoryButtonState extends State<CategoryButton> {
-  bool _isPressed = false;
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -27,7 +25,7 @@ class _CategoryButtonState extends State<CategoryButton> {
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-          _isPressed ? Colors.grey[700] : Colors.grey[500],
+          Colors.grey[500],
         ),
       ),
       child: Text(

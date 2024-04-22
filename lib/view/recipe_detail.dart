@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 // import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RecipeDetailView extends StatefulWidget {
   final int recipeId;
+  final String imageUrl;
 
-  const RecipeDetailView({super.key, required int this.recipeId});
+  const RecipeDetailView({super.key, required this.recipeId, required this.imageUrl});
 
   @override
   _RecipeDetailViewState createState() => _RecipeDetailViewState();
@@ -13,11 +15,14 @@ class RecipeDetailView extends StatefulWidget {
 
 class _RecipeDetailViewState extends State<RecipeDetailView> {
   late int recipeId;
+  late String imageUrl;
 
   @override
   void initState() {
     super.initState();
-    print("Detail View, Recipe ID: ${widget.recipeId}");
+    if (kDebugMode) {
+      print("Detail View, Recipe ID: ${widget.recipeId}");
+    }
 
     recipeId = widget.recipeId;
   }
@@ -47,25 +52,22 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 8.0,
-                right: 8.0,
-                bottom: 8.0,
-                top: 8.0,
-              ),
-              child: Row(
-                children: [
-                  Text('Detail View, Recipe ID: $recipeId'),
-                ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 300,
+              width: double.infinity,
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(widget.imageUrl),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

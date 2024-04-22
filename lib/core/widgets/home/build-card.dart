@@ -28,8 +28,9 @@ class _BuildCardState extends State<BuildCard> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const RecipeDetailView(
+            builder: (context) => RecipeDetailView(
               recipeId: 1,
+              imageUrl: widget.imageUrl,
             ),
           ),
         );

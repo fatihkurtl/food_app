@@ -201,6 +201,7 @@ class _HomeViewState extends State<HomeView> {
                     MaterialPageRoute(
                       builder: (context) => RecipeDetailView(
                         recipeId: index,
+                        imageUrl: "https://www.recipetineats.com/wp-content/uploads/2021/08/Garden-Salad_47-SQ.jpg",
                       ),
                     ),
                   );

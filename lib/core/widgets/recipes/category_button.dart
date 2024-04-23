@@ -25,14 +25,14 @@ class _CategoryButtonState extends State<CategoryButton> {
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-          Colors.grey[500],
+          Theme.of(context).colorScheme.secondary,
         ),
       ),
       child: Text(
         widget.text,
         style: GoogleFonts.roboto(
           fontWeight: FontWeight.normal,
-          color: Colors.grey[200],
+          color: Theme.of(context).colorScheme.primary,
           textStyle: const TextStyle(
             fontSize: 13,
           ),

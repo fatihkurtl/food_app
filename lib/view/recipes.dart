@@ -26,9 +26,9 @@ class _RecipesViewState extends State<RecipesView> {
           padding: const EdgeInsets.all(8.0),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.grey[100],
+              color: Theme.of(context).colorScheme.secondary,
               border: Border.all(
-                color: Colors.grey[300]!,
+                color: Theme.of(context).colorScheme.secondary,
               ),
               borderRadius: BorderRadius.circular(12),
             ),
@@ -137,7 +137,7 @@ class _RecipesViewState extends State<RecipesView> {
                     child: Container(
                       margin: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        color: Colors.grey[400],
+                        color: Theme.of(context).colorScheme.secondary,
                         borderRadius: BorderRadius.circular(10),
                         // boxShadow: const [
                         //   BoxShadow(
@@ -171,9 +171,9 @@ class _RecipesViewState extends State<RecipesView> {
                                 Padding(
                                   padding: const EdgeInsets.all(2.0),
                                   child: IconButton(
-                                    icon: const Icon(
+                                    icon: Icon(
                                       Icons.bookmark_border,
-                                      color: Colors.black,
+                                      color: Theme.of(context).colorScheme.primary,
                                     ),
                                     tooltip: "Kaydet",
                                     onPressed: () {
@@ -189,7 +189,7 @@ class _RecipesViewState extends State<RecipesView> {
                                     "Food",
                                     style: GoogleFonts.roboto(
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.black,
+                                      color: Theme.of(context).colorScheme.primary,
                                       textStyle: const TextStyle(
                                         fontSize: 18,
                                       ),
@@ -200,9 +200,9 @@ class _RecipesViewState extends State<RecipesView> {
                                 Padding(
                                   padding: const EdgeInsets.all(2.0),
                                   child: IconButton(
-                                    icon: const Icon(
+                                    icon: Icon(
                                       Icons.share,
-                                      color: Colors.black,
+                                      color: Theme.of(context).colorScheme.primary,
                                     ),
                                     tooltip: "Paylaş",
                                     onPressed: () {

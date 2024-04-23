@@ -12,11 +12,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Theme.of(context).colorScheme.background,
       title: Text(
         "TARİFİM OLSUN",
         style: TextStyle(
-          color: Colors.black,
+          color: Theme.of(context).colorScheme.primary,
           fontSize: 24,
           fontWeight: FontWeight.bold,
           fontFamily: GoogleFonts.bebasNeue().fontFamily,
@@ -25,7 +25,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       leading: IconButton(
         icon: Icon(
           Icons.menu,
-          color: Colors.grey[600],
+          color: Theme.of(context).colorScheme.primary,
         ),
         onPressed: () {
           Scaffold.of(context).openDrawer();

@@ -39,7 +39,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Theme.of(context).colorScheme.background,
         key: _scaffoldKey,
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
@@ -53,7 +53,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
               RootIndex.navigationIndex.value = index;
             });
           },
-          backgroundColor: Colors.grey[300],
+          backgroundColor: Theme.of(context).colorScheme.background,
           indicatorColor: Colors.grey[400],
           selectedIndex: RootIndex.navigationIndex.value,
           destinations: const [

@@ -51,7 +51,7 @@ class _HomeViewState extends State<HomeView> {
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.symmetric(horizontal: 5.0),
                       decoration: BoxDecoration(
-                        color: Colors.grey[300],
+                        color: Theme.of(context).colorScheme.background,
                         borderRadius: const BorderRadius.all(
                           Radius.circular(10),
                         ),
@@ -88,7 +88,7 @@ class _HomeViewState extends State<HomeView> {
                 child: Text(
                   "POPÜLER TARİFLER",
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.primary,
                     fontSize: 30,
                     fontWeight: FontWeight.w600,
                     fontFamily: GoogleFonts.bebasNeue().fontFamily,
@@ -158,7 +158,7 @@ class _HomeViewState extends State<HomeView> {
                 child: Text(
                   "TARİFLER",
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.primary,
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                     fontFamily: GoogleFonts.bebasNeue().fontFamily,
@@ -171,10 +171,10 @@ class _HomeViewState extends State<HomeView> {
                   onPressed: () {
                     RootIndex.navigationIndex.value = 1;
                   },
-                  child: const Text(
+                  child: Text(
                     "Tümünü Gör",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.primary,
                       fontSize: 15,
                     ),
                   ),
@@ -210,7 +210,7 @@ class _HomeViewState extends State<HomeView> {
                 child: Container(
                   margin: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                    color: Colors.grey[400],
+                    color: Theme.of(context).colorScheme.secondary,
                     borderRadius: BorderRadius.circular(10),
                     // boxShadow: const [
                     //   BoxShadow(
@@ -244,9 +244,9 @@ class _HomeViewState extends State<HomeView> {
                             Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: IconButton(
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.bookmark_border,
-                                  color: Colors.black,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                                 tooltip: "Kaydet",
                                 onPressed: () {
@@ -262,7 +262,7 @@ class _HomeViewState extends State<HomeView> {
                                 "Food",
                                 style: GoogleFonts.roboto(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black,
+                                  color: Theme.of(context).colorScheme.primary,
                                   textStyle: const TextStyle(
                                     fontSize: 18,
                                   ),
@@ -273,9 +273,9 @@ class _HomeViewState extends State<HomeView> {
                             Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: IconButton(
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.share,
-                                  color: Colors.black,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                                 tooltip: "Paylaş",
                                 onPressed: () {

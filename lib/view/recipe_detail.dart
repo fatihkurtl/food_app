@@ -32,11 +32,11 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: Text(
           "TARİFİM OLSUN",
           style: TextStyle(
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.primary,
             fontSize: 24,
             fontWeight: FontWeight.bold,
             fontFamily: GoogleFonts.bebasNeue().fontFamily,
@@ -45,7 +45,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.grey[600],
+            color: Theme.of(context).colorScheme.primary,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -73,7 +73,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                 "Tarif ID: ${widget.recipeId}",
                 style: GoogleFonts.roboto(
                   fontWeight: FontWeight.normal,
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.primary,
                   textStyle: const TextStyle(
                     fontSize: 24,
                   ),
@@ -86,7 +86,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
                 "Tarif Adı: ${widget.foodName}",
                 style: GoogleFonts.roboto(
                   fontWeight: FontWeight.normal,
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.primary,
                   textStyle: const TextStyle(
                     fontSize: 24,
                   ),

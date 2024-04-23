@@ -44,7 +44,7 @@ class _BuildCardState extends State<BuildCard> {
         width: 100,
         height: 100,
         decoration: BoxDecoration(
-          color: Colors.grey[400],
+          color: Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -67,7 +67,7 @@ class _BuildCardState extends State<BuildCard> {
               widget.foodName,
               style: GoogleFonts.bebasNeue(
                 fontSize: 15,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
           ],

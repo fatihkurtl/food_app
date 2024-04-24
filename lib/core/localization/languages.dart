@@ -36,6 +36,8 @@ class Languages extends Translations {
           "pastas": "Makarnalar",
           "world_cuisines": "Dünya Mutfakları",
           "healthy_recipes": "Sağlıklı Tarifler",
+          // profiles
+          "saved_recipes": "Kaydedilen Tarifler",
         },
         "en_US": {
           // appbar
@@ -65,6 +67,8 @@ class Languages extends Translations {
           "pastas": "Pastas",
           "world_cuisines": "World Cuisines",
           "healthy_recipes": "Healthy Recipes",
+          // profiles
+          "saved_recipes": "Saved Recipes",
         },
       };
 }

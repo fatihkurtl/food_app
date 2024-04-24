@@ -69,7 +69,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 (states) => Colors.grey[600]!,
               ),
               activeThumbImage: const AssetImage(
-                'lib/assets/icons/dark-mode.png',
+                "lib/assets/icons/dark-mode.png",
               ),
               inactiveThumbImage: const AssetImage(
                 'lib/assets/icons/light-mode.png',
@@ -91,50 +91,84 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 // }
               },
             ),
-            ExpansionTile(
+            SwitchListTile(
               title: Text(
-                "language".tr,
+                Get.locale == const Locale('en', 'US') ? 'English' : 'Türkçe',
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
-              leading: Image.asset(
-                Get.locale == const Locale('en', 'US') ? 'lib/assets/icons/usa-flag.png' : 'lib/assets/icons/tr-flag.png',
-                width: 25,
-                height: 25,
+              activeColor: Colors.grey[300],
+              inactiveThumbColor: Colors.grey[600],
+              inactiveTrackColor: Colors.grey[300],
+              trackOutlineColor: MaterialStateColor.resolveWith(
+                (states) => Colors.grey[600]!,
               ),
-              childrenPadding: const EdgeInsets.only(left: 60),
-              children: [
-                ListTile(
-                  leading: Image.asset('lib/assets/icons/usa-flag.png', width: 25, height: 25),
-                  title: Text(
-                    "English",
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                  onTap: () {
+              activeThumbImage: const AssetImage(
+                'lib/assets/icons/usa-flag.png',
+              ),
+              inactiveThumbImage: const AssetImage(
+                'lib/assets/icons/tr-flag.png',
+              ),
+              value: Get.locale!.languageCode == 'en',
+              onChanged: (value) {
+                setState(() {
+                  if (value) {
+                    // Anahtarın değeri true ise, İngilizce dilini seçiyoruz.
                     Get.updateLocale(const Locale('en', 'US'));
-                    Navigator.of(context).pop();
                     toggleLanguage(const Locale('en', 'US'));
-                  },
-                ),
-                ListTile(
-                  leading: Image.asset('lib/assets/icons/tr-flag.png', width: 25, height: 25),
-                  title: Text(
-                    "Türkçe",
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                  onTap: () {
+                  } else {
+                    // Anahtarın değeri false ise, Türkçe dilini seçiyoruz.
                     Get.updateLocale(const Locale('tr', 'TR'));
-                    Navigator.of(context).pop();
                     toggleLanguage(const Locale('tr', 'TR'));
-                  },
-                ),
-              ],
+                  }
+                });
+              },
             ),
+            // ExpansionTile(
+            //   title: Text(
+            //     Get.locale == const Locale('en', 'US') ? 'English' : 'Türkçe',
+            //     style: TextStyle(
+            //       color: Theme.of(context).colorScheme.primary,
+            //     ),
+            //   ),
+            //   leading: Image.asset(
+            //     Get.locale == const Locale('en', 'US') ? 'lib/assets/icons/usa-flag.png' : 'lib/assets/icons/tr-flag.png',
+            //     width: 25,
+            //     height: 25,
+            //   ),
+            //   childrenPadding: const EdgeInsets.only(left: 60),
+            //   children: [
+            //     ListTile(
+            //       leading: Image.asset('lib/assets/icons/usa-flag.png', width: 25, height: 25),
+            //       title: Text(
+            //         "English",
+            //         style: TextStyle(
+            //           color: Theme.of(context).colorScheme.primary,
+            //         ),
+            //       ),
+            //       onTap: () {
+            //         Get.updateLocale(const Locale('en', 'US'));
+            //         Navigator.of(context).pop();
+            //         toggleLanguage(const Locale('en', 'US'));
+            //       },
+            //     ),
+            //     ListTile(
+            //       leading: Image.asset('lib/assets/icons/tr-flag.png', width: 25, height: 25),
+            //       title: Text(
+            //         "Türkçe",
+            //         style: TextStyle(
+            //           color: Theme.of(context).colorScheme.primary,
+            //         ),
+            //       ),
+            //       onTap: () {
+            //         Get.updateLocale(const Locale('tr', 'TR'));
+            //         Navigator.of(context).pop();
+            //         toggleLanguage(const Locale('tr', 'TR'));
+            //       },
+            //     ),
+            //   ],
+            // ),
             ListTile(
               leading: Icon(
                 Icons.home_filled,

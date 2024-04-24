@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-// import 'package:get/get.dart';
+import 'package:get/get.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -67,10 +65,10 @@ class _ProfileViewState extends State<ProfileView> {
                   color: Theme.of(context).colorScheme.secondary,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "0",
                       style: TextStyle(
                         fontSize: 24,
@@ -78,8 +76,8 @@ class _ProfileViewState extends State<ProfileView> {
                       ),
                     ),
                     Text(
-                      "Recipes",
-                      style: TextStyle(
+                      "saved_recipes".tr,
+                      style: const TextStyle(
                         fontSize: 16,
                       ),
                     ),

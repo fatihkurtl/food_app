@@ -4,7 +4,7 @@ import 'package:food_app/core/components/drawer.dart';
 import 'package:food_app/core/models/route_models.dart';
 import 'package:food_app/view/home.dart';
 import 'package:food_app/view/recipes.dart';
-import 'package:food_app/view/signin.dart';
+import 'package:food_app/view/auth/profile.dart';
 import 'package:get/get.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
@@ -19,7 +19,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
   final List<Widget> _children = [
     const HomeView(),
     const RecipesView(),
-    const SignInView(),
+    const ProfileView(),
     // SignUpView(),
   ];
 
@@ -62,9 +62,9 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
               icon: const Icon(Icons.list_alt),
               label: "_recipes".tr,
             ),
-            const NavigationDestination(
-              icon: Icon(Icons.login),
-              label: "Giriş Yap",
+            NavigationDestination(
+              icon: const Icon(Icons.person),
+              label: "profile".tr,
             ),
           ],
         ),

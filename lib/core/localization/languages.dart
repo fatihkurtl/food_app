@@ -22,6 +22,7 @@ class Languages extends Translations {
           // bottom navigation
           "home": "Anasayfa",
           "_recipes": "Tarifler",
+          "profile": "Profil",
           // recipes search bar
           "search_recipes": "Tariflerde ara...",
           // recipes categories
@@ -50,6 +51,7 @@ class Languages extends Translations {
           // bottom navigation
           "home": "Home",
           "_recipes": "Recipes",
+          "profile": "Profile",
           // recipes search bar
           "search_recipes": "Search in recipes...",
           // recipes categories

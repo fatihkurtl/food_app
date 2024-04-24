@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
+import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
 import 'package:food_app/core/widgets/recipes/category_button.dart';
 import 'package:food_app/view/recipe_detail.dart';
@@ -37,7 +37,7 @@ class _RecipesViewState extends State<RecipesView> {
               child: TextField(
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: "Tariflerde ara...",
+                  hintText: "search_recipes".tr,
                   hintStyle: TextStyle(
                     color: Colors.grey[600],
                   ),
@@ -63,43 +63,43 @@ class _RecipesViewState extends State<RecipesView> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CategoryButton(
-                  text: 'Ana Yemekler',
+                  text: "main_meals",
                 ),
                 SizedBox(width: 10),
                 CategoryButton(
-                  text: 'Çorbalar',
+                  text: "soups",
                 ),
                 SizedBox(width: 10),
                 CategoryButton(
-                  text: 'Salatalar',
+                  text: "salads",
                 ),
                 SizedBox(width: 10),
                 CategoryButton(
-                  text: 'Kahvaltılıklar',
+                  text: "breakfast_foods",
                 ),
                 SizedBox(width: 10),
                 CategoryButton(
-                  text: 'Tatlılar',
+                  text: "desserts",
                 ),
                 SizedBox(width: 10),
                 CategoryButton(
-                  text: 'İçecekler',
+                  text: "drinks",
                 ),
                 SizedBox(width: 10),
                 CategoryButton(
-                  text: 'Vegan / Vejetaryen',
+                  text: "vegan_vegetarian",
                 ),
                 SizedBox(width: 10),
                 CategoryButton(
-                  text: 'Makarnalar',
+                  text: "pastas",
                 ),
                 SizedBox(width: 10),
                 CategoryButton(
-                  text: 'Dünya Mutfakları',
+                  text: "world_cuisines",
                 ),
                 SizedBox(width: 10),
                 CategoryButton(
-                  text: 'Sağlıklı Tarifler',
+                  text: "healthy_recipes",
                 ),
               ],
             ),

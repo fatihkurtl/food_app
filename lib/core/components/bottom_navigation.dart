@@ -41,10 +41,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
       () => Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         key: _scaffoldKey,
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight),
-          child: CustomAppBar(),
-        ),
+        appBar: const CustomAppBar(),
         drawer: const CustomDrawer(),
         body: _children[RootIndex.navigationIndex.value],
         bottomNavigationBar: NavigationBar(
@@ -56,16 +53,16 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
           backgroundColor: Theme.of(context).colorScheme.background,
           indicatorColor: Colors.grey[400],
           selectedIndex: RootIndex.navigationIndex.value,
-          destinations: const [
+          destinations: [
             NavigationDestination(
-              icon: Icon(Icons.home),
-              label: "Anasayfa",
+              icon: const Icon(Icons.home),
+              label: "home".tr,
             ),
             NavigationDestination(
-              icon: Icon(Icons.list_alt),
-              label: "Tarifler",
+              icon: const Icon(Icons.list_alt),
+              label: "_recipes".tr,
             ),
-            NavigationDestination(
+            const NavigationDestination(
               icon: Icon(Icons.login),
               label: "Giriş Yap",
             ),

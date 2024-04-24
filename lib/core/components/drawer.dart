@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/core/theme/theme_provider.dart';
+import 'package:get/get.dart';
 import 'package:food_app/view/home.dart';
 import 'package:food_app/view/recipes.dart';
 import 'package:food_app/view/signin.dart';
@@ -7,6 +7,8 @@ import 'package:food_app/view/signup.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:food_app/core/models/theme_models.dart';
+import 'package:food_app/core/theme/theme_provider.dart';
+import 'package:food_app/core/localization/lang_provider.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -16,8 +18,6 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
-  // bool isDarkMode = false;
-
   @override
   void initState() {
     super.initState();
@@ -57,7 +57,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
             SwitchListTile(
               title: Text(
-                ThemeModel.isDarkMode.value ? 'Karanlık' : 'Aydınlık',
+                ThemeModel.isDarkMode.value ? 'dark'.tr : 'light'.tr,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                 ),
@@ -90,6 +90,50 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 //   Theme.of(context).brightness = Brightness.light;
                 // }
               },
+            ),
+            ExpansionTile(
+              title: Text(
+                "language".tr,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              leading: Image.asset(
+                Get.locale == const Locale('en', 'US') ? 'lib/assets/icons/usa-flag.png' : 'lib/assets/icons/tr-flag.png',
+                width: 25,
+                height: 25,
+              ),
+              childrenPadding: const EdgeInsets.only(left: 60),
+              children: [
+                ListTile(
+                  leading: Image.asset('lib/assets/icons/usa-flag.png', width: 25, height: 25),
+                  title: Text(
+                    "English",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  onTap: () {
+                    Get.updateLocale(const Locale('en', 'US'));
+                    Navigator.of(context).pop();
+                    toggleLanguage(const Locale('en', 'US'));
+                  },
+                ),
+                ListTile(
+                  leading: Image.asset('lib/assets/icons/tr-flag.png', width: 25, height: 25),
+                  title: Text(
+                    "Türkçe",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  onTap: () {
+                    Get.updateLocale(const Locale('tr', 'TR'));
+                    Navigator.of(context).pop();
+                    toggleLanguage(const Locale('tr', 'TR'));
+                  },
+                ),
+              ],
             ),
             ListTile(
               leading: Icon(

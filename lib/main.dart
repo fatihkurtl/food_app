@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/core/localization/languages.dart';
 import 'package:get/get.dart';
 import 'package:food_app/core/theme/theme_provider.dart';
 import 'package:food_app/core/components/bottom_navigation.dart';
@@ -34,6 +35,9 @@ class _MyAppState extends State<MyApp> {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: themeProvider.themeData,
+          translations: Languages(),
+          locale: Get.deviceLocale,
+          fallbackLocale: const Locale("tr", "TR"),
           home: const CustomBottomNavigation(),
         );
       },

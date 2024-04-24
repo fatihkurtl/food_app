@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -29,7 +30,7 @@ class _CategoryButtonState extends State<CategoryButton> {
         ),
       ),
       child: Text(
-        widget.text,
+        widget.text.tr,
         style: GoogleFonts.roboto(
           fontWeight: FontWeight.normal,
           color: Theme.of(context).colorScheme.primary,

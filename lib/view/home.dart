@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
+import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:food_app/core/models/route_models.dart';
@@ -86,7 +86,7 @@ class _HomeViewState extends State<HomeView> {
                   left: 5,
                 ),
                 child: Text(
-                  "POPÜLER TARİFLER",
+                  "populer_recipes".tr,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                     fontSize: 30,
@@ -156,7 +156,7 @@ class _HomeViewState extends State<HomeView> {
                   left: 5,
                 ),
                 child: Text(
-                  "TARİFLER",
+                  "recipes".tr,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                     fontSize: 30,
@@ -172,7 +172,7 @@ class _HomeViewState extends State<HomeView> {
                     RootIndex.navigationIndex.value = 1;
                   },
                   child: Text(
-                    "Tümünü Gör",
+                    "see_all".tr,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.primary,
                       fontSize: 15,

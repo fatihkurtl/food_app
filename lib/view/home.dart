@@ -248,7 +248,7 @@ class _HomeViewState extends State<HomeView> {
                                   Icons.bookmark_border,
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
-                                tooltip: "Kaydet",
+                                tooltip: "save".tr,
                                 onPressed: () {
                                   if (kDebugMode) {
                                     print('Pressed Bookmark');
@@ -277,7 +277,7 @@ class _HomeViewState extends State<HomeView> {
                                   Icons.share,
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
-                                tooltip: "Paylaş",
+                                tooltip: "share".tr,
                                 onPressed: () {
                                   if (kDebugMode) {
                                     print('Pressed Share');

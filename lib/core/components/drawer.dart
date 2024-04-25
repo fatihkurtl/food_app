@@ -62,9 +62,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
-              activeColor: Colors.grey[300],
-              inactiveThumbColor: Colors.grey[600],
-              inactiveTrackColor: Colors.grey[300],
+              activeColor: Colors.transparent,
+              inactiveThumbColor: Colors.transparent,
+              activeTrackColor: Colors.transparent,
+              inactiveTrackColor: Colors.transparent,
+              trackColor: MaterialStateColor.resolveWith(
+                (states) => Colors.transparent,
+              ),
               trackOutlineColor: MaterialStateColor.resolveWith(
                 (states) => Colors.grey[600]!,
               ),
@@ -98,9 +102,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
-              activeColor: Colors.grey[300],
-              inactiveThumbColor: Colors.grey[600],
-              inactiveTrackColor: Colors.grey[300],
+              activeColor: Colors.transparent,
+              inactiveThumbColor: Colors.transparent,
+              activeTrackColor: Colors.transparent,
+              inactiveTrackColor: Colors.transparent,
+              trackColor: MaterialStateColor.resolveWith(
+                (states) => Colors.transparent,
+              ),
               trackOutlineColor: MaterialStateColor.resolveWith(
                 (states) => Colors.grey[600]!,
               ),
@@ -114,16 +122,56 @@ class _CustomDrawerState extends State<CustomDrawer> {
               onChanged: (value) {
                 setState(() {
                   if (value) {
-                    // Anahtarın değeri true ise, İngilizce dilini seçiyoruz.
                     Get.updateLocale(const Locale('en', 'US'));
                     toggleLanguage(const Locale('en', 'US'));
                   } else {
-                    // Anahtarın değeri false ise, Türkçe dilini seçiyoruz.
                     Get.updateLocale(const Locale('tr', 'TR'));
                     toggleLanguage(const Locale('tr', 'TR'));
                   }
                 });
               },
+            ),
+            ListTile(
+              title: Text(
+                "saved_recipes".tr,
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              ),
+              leading: Icon(
+                Icons.bookmark,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            ListTile(
+              title: Text(
+                "settings".tr,
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              ),
+              leading: Icon(
+                Icons.settings,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            ListTile(
+              title: Text(
+                "logout".tr,
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              ),
+              leading: Icon(
+                Icons.logout,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
             // ExpansionTile(
             //   title: Text(

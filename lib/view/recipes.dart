@@ -175,7 +175,7 @@ class _RecipesViewState extends State<RecipesView> {
                                       Icons.bookmark_border,
                                       color: Theme.of(context).colorScheme.primary,
                                     ),
-                                    tooltip: "Kaydet",
+                                    tooltip: "save".tr,
                                     onPressed: () {
                                       if (kDebugMode) {
                                         print('Pressed Bookmark');

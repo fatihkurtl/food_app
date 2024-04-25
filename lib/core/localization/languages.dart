@@ -23,6 +23,9 @@ class Languages extends Translations {
           "home": "Anasayfa",
           "_recipes": "Tarifler",
           "profile": "Profil",
+          // recipes cards
+          "save": "Kaydet",
+          "share": "Paylaş",
           // recipes search bar
           "search_recipes": "Tariflerde ara...",
           // recipes categories
@@ -37,7 +40,8 @@ class Languages extends Translations {
           "world_cuisines": "Dünya Mutfakları",
           "healthy_recipes": "Sağlıklı Tarifler",
           // profiles
-          "saved_recipes": "Kaydedilen Tarifler",
+          "saved_recipes": "Kayıtlı Tarifler",
+          "edit_profile": "Profili Düzenle",
         },
         "en_US": {
           // appbar
@@ -54,6 +58,9 @@ class Languages extends Translations {
           "home": "Home",
           "_recipes": "Recipes",
           "profile": "Profile",
+          // recipes cards
+          "save": "Save",
+          "share": "Share",
           // recipes search bar
           "search_recipes": "Search in recipes...",
           // recipes categories
@@ -69,6 +76,7 @@ class Languages extends Translations {
           "healthy_recipes": "Healthy Recipes",
           // profiles
           "saved_recipes": "Saved Recipes",
+          "edit_profile": "Edit Profile",
         },
       };
 }

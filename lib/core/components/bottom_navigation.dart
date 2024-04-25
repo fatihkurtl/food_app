@@ -43,7 +43,9 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
         key: _scaffoldKey,
         appBar: const CustomAppBar(),
         drawer: const CustomDrawer(),
-        body: _children[RootIndex.navigationIndex.value],
+        body: SafeArea(
+          child: _children[RootIndex.navigationIndex.value],
+        ),
         bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {
             setState(() {

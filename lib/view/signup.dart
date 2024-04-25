@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:food_app/core/components/drawer.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignUpView extends StatefulWidget {
@@ -28,20 +29,21 @@ class _SignUpState extends State<SignUpView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Theme.of(context).colorScheme.background,
       ),
+      drawer: const CustomDrawer(),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
+                Icon(
                   Icons.fastfood,
                   size: 100,
-                  color: Colors.deepPurple,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
                 const SizedBox(height: 25),
                 Text(
@@ -51,10 +53,10 @@ class _SignUpState extends State<SignUpView> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Text(
+                Text(
                   "Create an account to continue",
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.primary,
                     fontSize: 20,
                   ),
                 ),
@@ -63,9 +65,9 @@ class _SignUpState extends State<SignUpView> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey[200],
+                      color: Theme.of(context).colorScheme.secondary,
                       border: Border.all(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -85,9 +87,9 @@ class _SignUpState extends State<SignUpView> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey[200],
+                      color: Theme.of(context).colorScheme.secondary,
                       border: Border.all(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -107,9 +109,9 @@ class _SignUpState extends State<SignUpView> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey[200],
+                      color: Theme.of(context).colorScheme.secondary,
                       border: Border.all(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -130,9 +132,9 @@ class _SignUpState extends State<SignUpView> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey[200],
+                      color: Theme.of(context).colorScheme.secondary,
                       border: Border.all(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -152,16 +154,16 @@ class _SignUpState extends State<SignUpView> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(15.0),
                     decoration: BoxDecoration(
-                      color: Colors.deepPurple,
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
                         "Sign Up",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.background,
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
@@ -170,16 +172,17 @@ class _SignUpState extends State<SignUpView> {
                   ),
                 ),
                 const SizedBox(height: 25),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Already have an account? ',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Sign In',
                       style: TextStyle(
                         color: Colors.blue,

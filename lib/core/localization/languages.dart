@@ -86,7 +86,7 @@ class Languages extends Translations {
           "saved_recipes": "Saved Recipes",
           "edit_profile": "Edit Profile",
           // edit profile
-          "name": "Name Surname",
+          "name": "Full Name",
           "email": "E-mail",
           "gender": "Gender",
           "age": "Age",

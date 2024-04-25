@@ -220,7 +220,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             // ),
             ListTile(
               leading: Icon(
-                Icons.login,
+                Icons.person,
                 color: Theme.of(context).colorScheme.primary,
               ),
               title: Text(
@@ -228,6 +228,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                 ),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Theme.of(context).colorScheme.primary,
               ),
               onTap: () {
                 Navigator.of(context).push(

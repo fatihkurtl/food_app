@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:food_app/core/components/appbar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignInView extends StatefulWidget {
@@ -25,9 +26,7 @@ class _SignInState extends State<SignInView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        backgroundColor: Colors.grey[300],
-      ),
+      appBar: CustomAppBar(),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -103,16 +102,16 @@ class _SignInState extends State<SignInView> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(15.0),
                     decoration: BoxDecoration(
-                      color: Colors.deepPurple,
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
                         "Sign In",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.background,
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),

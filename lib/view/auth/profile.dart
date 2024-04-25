@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:food_app/view/auth/edit_profile.dart';
 import 'package:food_app/view/recipe_detail.dart';
 
 class ProfileView extends StatefulWidget {
@@ -44,7 +45,11 @@ class _ProfileViewState extends State<ProfileView> {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                // TODO: Profil düzenleme sayfasına git
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileEditView(),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.secondary,

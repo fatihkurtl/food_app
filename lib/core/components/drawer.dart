@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:food_app/view/home.dart';
 import 'package:food_app/view/recipes.dart';
+import 'package:food_app/view/auth/edit_profile.dart';
 import 'package:food_app/view/signin.dart';
 import 'package:food_app/view/signup.dart';
 import 'package:provider/provider.dart';
@@ -76,7 +77,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 "lib/assets/icons/dark-mode.png",
               ),
               inactiveThumbImage: const AssetImage(
-                'lib/assets/icons/light-mode.png',
+                "lib/assets/icons/light-mode.png",
               ),
               value: ThemeModel.isDarkMode.value,
               onChanged: (value) {
@@ -97,7 +98,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
             SwitchListTile(
               title: Text(
-                Get.locale == const Locale('en', 'US') ? 'English' : 'Türkçe',
+                Get.locale == const Locale("en", "US") ? "English" : "Türkçe",
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                 ),
@@ -113,20 +114,20 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 (states) => Colors.grey[600]!,
               ),
               activeThumbImage: const AssetImage(
-                'lib/assets/icons/usa-flag.png',
+                "lib/assets/icons/usa-flag.png",
               ),
               inactiveThumbImage: const AssetImage(
-                'lib/assets/icons/tr-flag.png',
+                "lib/assets/icons/tr-flag.png",
               ),
               value: Get.locale!.languageCode == 'en',
               onChanged: (value) {
                 setState(() {
                   if (value) {
-                    Get.updateLocale(const Locale('en', 'US'));
-                    toggleLanguage(const Locale('en', 'US'));
+                    Get.updateLocale(const Locale("en", "US"));
+                    toggleLanguage(const Locale("en", "US"));
                   } else {
-                    Get.updateLocale(const Locale('tr', 'TR'));
-                    toggleLanguage(const Locale('tr', 'TR'));
+                    Get.updateLocale(const Locale("tr", "TR"));
+                    toggleLanguage(const Locale("tr", "TR"));
                   }
                 });
               },
@@ -217,6 +218,25 @@ class _CustomDrawerState extends State<CustomDrawer> {
             //     ),
             //   ],
             // ),
+            ListTile(
+              leading: Icon(
+                Icons.login,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              title: Text(
+                "Edit Profile",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileEditView(),
+                  ),
+                );
+              },
+            ),
             ListTile(
               leading: Icon(
                 Icons.home_filled,

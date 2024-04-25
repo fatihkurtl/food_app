@@ -42,6 +42,14 @@ class Languages extends Translations {
           // profiles
           "saved_recipes": "Kayıtlı Tarifler",
           "edit_profile": "Profili Düzenle",
+          // edit profile
+          "name": "Ad Soyad",
+          "email": "E-posta",
+          "gender": "Cinsiyet",
+          "age": "Yaş",
+          "male": "Erkek",
+          "female": "Kadın",
+          "other": "Diğer",
         },
         "en_US": {
           // appbar
@@ -77,6 +85,14 @@ class Languages extends Translations {
           // profiles
           "saved_recipes": "Saved Recipes",
           "edit_profile": "Edit Profile",
+          // edit profile
+          "name": "Name Surname",
+          "email": "E-mail",
+          "gender": "Gender",
+          "age": "Age",
+          "male": "Male",
+          "female": "Female",
+          "other": "Other",
         },
       };
 }

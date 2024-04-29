@@ -16,10 +16,17 @@ class ApiServices {
       body: body,
     );
 
-    return {
-      "statusCode": response.statusCode,
-      "body": response.body,
-    };
+    if (response.statusCode == 200) {
+      return {
+        "statusCode": response.statusCode,
+        "body": response.body,
+      };
+    } else {
+      return {
+        "statusCode": response.statusCode,
+        "body": response.body,
+      };
+    }
   }
 
   static Future<Map<String, dynamic>> get(String url) async {
@@ -27,10 +34,17 @@ class ApiServices {
       "Content-Type": "application/json",
     });
 
-    return {
-      "statusCode": response.statusCode,
-      "body": response.body,
-    };
+    if (response.statusCode == 200) {
+      return {
+        "statusCode": response.statusCode,
+        "body": response.body,
+      };
+    } else {
+      return {
+        "statusCode": response.statusCode,
+        "body": response.body,
+      };
+    }
   }
 
   static Future<Map<String, dynamic>> put(String url, String token, Map<String, dynamic> body) async {
@@ -38,14 +52,22 @@ class ApiServices {
       Uri.parse(Constants.baseUrl + url),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
       },
       body: body,
     );
 
-    return {
-      "statusCode": response.statusCode,
-      "body": response.body,
-    };
+    if (response.statusCode == 200) {
+      return {
+        "statusCode": response.statusCode,
+        "body": response.body,
+      };
+    } else {
+      return {
+        "statusCode": response.statusCode,
+        "body": response.body,
+      };
+    }
   }
 
   static Future<Map<String, dynamic>> getUser(String url, String token) async {
@@ -60,9 +82,16 @@ class ApiServices {
 
     User user = User.fromJson(jsonResponse);
 
-    return {
-      "statusCode": response.statusCode,
-      "body": user,
-    };
+    if (response.statusCode == 200) {
+      return {
+        "statusCode": response.statusCode,
+        "body": user,
+      };
+    } else {
+      return {
+        "statusCode": response.statusCode,
+        "body": response.body,
+      };
+    }
   }
 }

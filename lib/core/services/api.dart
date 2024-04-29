@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:food_app/core/models/user_model.dart';
 import 'package:food_app/utils/constants.dart';
 import 'package:http/http.dart' as http;
 // import 'dart:convert';
@@ -53,10 +56,13 @@ class ApiServices {
         "Authorization": "Bearer $token",
       },
     );
+    Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+
+    User user = User.fromJson(jsonResponse);
 
     return {
       "statusCode": response.statusCode,
-      "body": response.body,
+      "body": user,
     };
   }
 }

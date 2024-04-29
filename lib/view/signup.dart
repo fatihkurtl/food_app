@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:food_app/core/components/drawer.dart';
 import 'package:food_app/view/signin.dart';
+import 'package:food_app/core/services/api.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -26,6 +27,14 @@ class _SignUpState extends State<SignUpView> {
     final String confirmPassword = _confirmPasswordController.text.trim();
 
     print("Name: $name\nEmail: $email\nPassword: $password\nConfirm Password: $confirmPassword");
+    ApiServices.post(
+      "example url",
+      {
+        "name": name,
+        "email": email,
+        "password": password,
+      },
+    );
   }
 
   @override

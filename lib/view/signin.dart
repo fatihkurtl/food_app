@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/core/services/api.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:food_app/core/components/appbar.dart';
@@ -21,6 +22,11 @@ class _SignInState extends State<SignInView> {
     final String password = _passwordController.text.trim();
 
     print("Email: $email\nPassword: $password");
+
+    ApiServices.post("example url", {
+      "email": email,
+      "password": password,
+    });
   }
 
   @override

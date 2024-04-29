@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 // import 'package:food_app/core/components/appbar.dart';
 // import 'package:food_app/core/components/drawer.dart';
+import 'package:food_app/core/services/api.dart';
 
 class ProfileEditView extends StatefulWidget {
   const ProfileEditView({super.key});
@@ -31,6 +32,12 @@ class _ProfileEditViewState extends State<ProfileEditView> {
         }
       });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    ApiServices.getUser("example url", "example token");
   }
 
   @override

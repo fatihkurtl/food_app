@@ -1,10 +1,8 @@
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:food_app/core/models/user_model.dart';
 import 'package:food_app/utils/constants.dart';
-import 'package:http/http.dart' as http;
 // import 'dart:convert';
-// import "package:food_app/core/constants/api_constants.dart";
 
 class ApiServices {
   static Future<Map<String, dynamic>> post(String url, Map<String, dynamic> body) async {

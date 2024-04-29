@@ -1,8 +1,9 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
-import 'package:food_app/core/components/appbar.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:food_app/core/components/appbar.dart';
+import 'package:food_app/core/components/drawer.dart';
+import 'package:food_app/view/signup.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -25,31 +26,33 @@ class _SignInState extends State<SignInView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
-      appBar: CustomAppBar(),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: const CustomAppBar(),
+      drawer: const CustomDrawer(),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
+                Icon(
                   Icons.fastfood,
                   size: 100,
-                  color: Colors.deepPurple,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
                 const SizedBox(height: 25),
                 Text(
                   "Sign In",
                   style: GoogleFonts.bebasNeue(
                     fontSize: 52,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Text(
+                Text(
                   "Sign in to continue",
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.primary,
                     fontSize: 20,
                   ),
                 ),
@@ -58,9 +61,9 @@ class _SignInState extends State<SignInView> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey[200],
+                      color: Theme.of(context).colorScheme.secondary,
                       border: Border.all(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -80,9 +83,9 @@ class _SignInState extends State<SignInView> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey[200],
+                      color: Theme.of(context).colorScheme.secondary,
                       border: Border.all(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -120,20 +123,30 @@ class _SignInState extends State<SignInView> {
                   ),
                 ),
                 const SizedBox(height: 25),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don't have an account?",
+                      "Don't have an account? ",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
-                    Text(
-                      "Sign Up",
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SignUpView(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "sign_up".tr,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
                       ),
                     ),
                   ],

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/foundation.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:food_app/core/components/appbar.dart';
-import 'package:food_app/core/components/drawer.dart';
+// import 'package:food_app/core/components/appbar.dart';
+// import 'package:food_app/core/components/drawer.dart';
 
 class ProfileEditView extends StatefulWidget {
   const ProfileEditView({super.key});
@@ -15,18 +16,19 @@ class ProfileEditView extends StatefulWidget {
 class _ProfileEditViewState extends State<ProfileEditView> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  String _gender = 'Male'; // Default gender value
-  int _age = 18; // Default age value
-  File? _imageFile; // Variable to store the selected image file
+  String _gender = 'Male';
+  int _age = 18;
+  File? _imageFile;
 
-  // Function to handle selecting image from gallery or camera
   Future<void> _selectImage(ImageSource source) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
 
     if (pickedFile != null) {
       setState(() {
         _imageFile = File(pickedFile.path);
-        print("Image selected: $_imageFile");
+        if (kDebugMode) {
+          print("Image selected: $_imageFile");
+        }
       });
     }
   }
@@ -35,15 +37,19 @@ class _ProfileEditViewState extends State<ProfileEditView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: const CustomAppBar(),
-      drawer: const CustomDrawer(),
+      appBar: AppBar(
+        title: Text("edit_profile".tr),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).colorScheme.background,
+      ),
+      // appBar: const CustomAppBar(),
+      // drawer: const CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
             GestureDetector(
               onTap: () {
-                // Open bottom sheet to choose image source
                 showModalBottomSheet(
                   context: context,
                   builder: (BuildContext context) {
@@ -73,9 +79,9 @@ class _ProfileEditViewState extends State<ProfileEditView> {
               },
               child: CircleAvatar(
                 radius: 100.0,
-                backgroundColor: Colors.grey, // Varsayılan arka plan rengi
+                backgroundColor: Colors.grey,
                 backgroundImage: _imageFile != null ? FileImage(_imageFile!) : const AssetImage("lib/assets/images/user.png") as ImageProvider,
-                child: _imageFile == null ? const Icon(Icons.camera_alt, size: 40, color: Colors.white) : null, // Varsayılan profil fotoğrafı ikonu
+                child: _imageFile == null ? const Icon(Icons.camera_alt, size: 40, color: Colors.white) : null,
               ),
             ),
             const SizedBox(height: 16),
@@ -178,10 +184,13 @@ class _ProfileEditViewState extends State<ProfileEditView> {
               child: ElevatedButton(
                 onPressed: () {
                   // Save the user data
-                  print("Name: ${_nameController.text}");
-                  print("Email: ${_emailController.text}");
+                  if (kDebugMode) {
+                    print("Name: ${_nameController.text}");
+                  }
+                  if (kDebugMode) {
+                    print("Email: ${_emailController.text}");
+                  }
 
-                  // Navigate back to the profile page
                   Get.back();
                 },
                 style: ElevatedButton.styleFrom(

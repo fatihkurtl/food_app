@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:food_app/view/home.dart';
-import 'package:food_app/view/recipes.dart';
+// import 'package:food_app/view/home.dart';
+// import 'package:food_app/view/recipes.dart';
 import 'package:food_app/view/auth/edit_profile.dart';
 import 'package:food_app/view/signin.dart';
 import 'package:food_app/view/signup.dart';
@@ -133,12 +133,95 @@ class _CustomDrawerState extends State<CustomDrawer> {
               },
             ),
             ListTile(
+              leading: Icon(
+                Icons.person,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              title: Text(
+                "edit_profile".tr,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileEditView(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
               title: Text(
                 "saved_recipes".tr,
                 style: TextStyle(color: Theme.of(context).colorScheme.primary),
               ),
               leading: Icon(
                 Icons.bookmark,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.login,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              title: Text(
+                "sign_in".tr,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const SignInView(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.account_circle,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              title: Text(
+                "sign_up".tr,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const SignUpView(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: Text(
+                "logout".tr,
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              ),
+              leading: Icon(
+                Icons.logout,
                 color: Theme.of(context).colorScheme.primary,
               ),
               trailing: Icon(
@@ -160,20 +243,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
-            ListTile(
-              title: Text(
-                "logout".tr,
-                style: TextStyle(color: Theme.of(context).colorScheme.primary),
-              ),
-              leading: Icon(
-                Icons.logout,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
+
             // ExpansionTile(
             //   title: Text(
             //     Get.locale == const Locale('en', 'US') ? 'English' : 'Türkçe',
@@ -218,105 +288,45 @@ class _CustomDrawerState extends State<CustomDrawer> {
             //     ),
             //   ],
             // ),
-            ListTile(
-              leading: Icon(
-                Icons.person,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              title: Text(
-                "Edit Profile",
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ProfileEditView(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.home_filled,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              title: Text(
-                'Home',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const HomeView(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.list_alt,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              title: Text(
-                'Recipes',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const RecipesView(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.login,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              title: Text(
-                'Sign In',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const SignInView(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.login,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              title: Text(
-                'Sign Up',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const SignUpView(),
-                  ),
-                );
-              },
-            ),
+            //////////////////////////////////////////////
+            // ListTile(
+            //   leading: Icon(
+            //     Icons.home_filled,
+            //     color: Theme.of(context).colorScheme.primary,
+            //   ),
+            //   title: Text(
+            //     'Home',
+            //     style: TextStyle(
+            //       color: Theme.of(context).colorScheme.primary,
+            //     ),
+            //   ),
+            //   onTap: () {
+            //     Navigator.of(context).push(
+            //       MaterialPageRoute(
+            //         builder: (context) => const HomeView(),
+            //       ),
+            //     );
+            //   },
+            // ),
+            // ListTile(
+            //   leading: Icon(
+            //     Icons.list_alt,
+            //     color: Theme.of(context).colorScheme.primary,
+            //   ),
+            //   title: Text(
+            //     'Recipes',
+            //     style: TextStyle(
+            //       color: Theme.of(context).colorScheme.primary,
+            //     ),
+            //   ),
+            //   onTap: () {
+            //     Navigator.of(context).push(
+            //       MaterialPageRoute(
+            //         builder: (context) => const RecipesView(),
+            //       ),
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),

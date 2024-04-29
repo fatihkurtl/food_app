@@ -1,8 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:food_app/core/components/drawer.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:food_app/core/components/drawer.dart';
+import 'package:food_app/view/signin.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -50,6 +52,7 @@ class _SignUpState extends State<SignUpView> {
                   "Sign Up",
                   style: GoogleFonts.bebasNeue(
                     fontSize: 52,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -182,11 +185,20 @@ class _SignUpState extends State<SignUpView> {
                         color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
-                    const Text(
-                      'Sign In',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SignInView(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "sign_in".tr,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
                       ),
                     ),
                   ],

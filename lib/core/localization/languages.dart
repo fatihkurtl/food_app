@@ -19,6 +19,9 @@ class Languages extends Translations {
           "light": "Aydınlık",
           "dark": "Karanlık",
           "language": "Dil",
+          "sign_in": "Giriş Yap",
+          "sign_up": "Kayıt Ol",
+          "logout": "Çıkış Yap",
           // bottom navigation
           "home": "Anasayfa",
           "_recipes": "Tarifler",
@@ -62,6 +65,9 @@ class Languages extends Translations {
           "light": "Light",
           "dark": "Dark",
           "language": "Language",
+          "sign_in": "Sign In",
+          "sign_up": "Sign Up",
+          "logout": "Logout",
           // bottom navigation
           "home": "Home",
           "_recipes": "Recipes",

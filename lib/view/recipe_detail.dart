@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class RecipeDetailView extends StatefulWidget {
   final int recipeId;
@@ -53,47 +54,22 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 300,
-              width: double.infinity,
-              padding: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(widget.imageUrl),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Tarif ID: ${widget.recipeId}",
-                style: GoogleFonts.roboto(
-                  fontWeight: FontWeight.normal,
-                  color: Theme.of(context).colorScheme.primary,
-                  textStyle: const TextStyle(
-                    fontSize: 24,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Tarif Adı: ${widget.foodName}",
-                style: GoogleFonts.roboto(
-                  fontWeight: FontWeight.normal,
-                  color: Theme.of(context).colorScheme.primary,
-                  textStyle: const TextStyle(
-                    fontSize: 24,
-                  ),
-                ),
-              ),
-            ),
-          ],
+      body: Markdown(
+        data: """
+   ![Image](${widget.imageUrl})
+   # ${widget.foodName}
+  # This is a Heading 1
+  ## This is a Heading 2
+  This is a paragraph with some *italic* and **bold** text.
+  - This is a bullet point
+  - Another bullet point
+  1. This is a numbered list
+  2. Another numbered item
+  """,
+        styleSheet: MarkdownStyleSheet(
+          h1: const TextStyle(fontSize: 24),
+          h2: const TextStyle(fontSize: 20),
+          a: const TextStyle(color: Colors.blue),
         ),
       ),
     );

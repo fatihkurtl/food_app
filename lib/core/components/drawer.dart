@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 // import 'package:food_app/view/home.dart';
 // import 'package:food_app/view/recipes.dart';
 import 'package:food_app/view/auth/edit_profile.dart';
+import 'package:food_app/view/auth/profile.dart';
 import 'package:food_app/view/signin.dart';
 import 'package:food_app/view/signup.dart';
 import 'package:provider/provider.dart';
@@ -168,6 +169,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 Icons.arrow_forward_ios,
                 color: Theme.of(context).colorScheme.primary,
               ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileView(),
+                  ),
+                );
+              },
             ),
             ListTile(
               leading: Icon(

@@ -65,7 +65,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
               label: "_recipes".tr,
             ),
             NavigationDestination(
-              icon: const Icon(Icons.person),
+              icon: const Icon(Icons.account_circle),
               label: "profile".tr,
             ),
           ],

@@ -194,7 +194,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
             ListTile(
               leading: Icon(
-                Icons.account_circle,
+                Icons.person_add,
                 color: Theme.of(context).colorScheme.primary,
               ),
               title: Text(

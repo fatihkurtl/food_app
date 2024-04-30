@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
-// import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RecipeDetailView extends StatefulWidget {
@@ -34,7 +34,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
         title: Text(
-          "TARİFİM OLSUN",
+          "recipe_app".tr,
           style: TextStyle(
             color: Theme.of(context).colorScheme.primary,
             fontSize: 24,

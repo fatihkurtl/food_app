@@ -53,6 +53,16 @@ class Languages extends Translations {
           "male": "Erkek",
           "female": "Kadın",
           "other": "Diğer",
+          // sign up & sign in
+          "create_an_account_to_continue": "Devam etmek için hesap oluşturun",
+          "password": "Şifre",
+          "confirm_password": "Şifreyi Onayla",
+          "already_have_an_account": "Zaten hesabınız var mı? ",
+          "sign_in_to_continue": "Devam etmek için giriş yapın",
+          "dont_have_an_account": "Hesabınız yok mu? ",
+          // sign up warning snackbar
+          "error": "Hata",
+          "please_fill_in_the_required_fields": "Lütfen gerekli alanları doldurunuz",
         },
         "en_US": {
           // appbar
@@ -99,6 +109,16 @@ class Languages extends Translations {
           "male": "Male",
           "female": "Female",
           "other": "Other",
+          // sign up & sign in
+          "create_an_account_to_continue": "Create an account to continue",
+          "password": "Password",
+          "confirm_password": "Confirm Password",
+          "already_have_an_account": "Already have an account? ",
+          "sign_in_to_continue": "Sign in to continue",
+          "dont_have_an_account": "Don't have an account? ",
+          // sign up warning snackbar
+          "error": "Error",
+          "please_fill_in_the_required_fields": "Please fill in the required fields",
         },
       };
 }

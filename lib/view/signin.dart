@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_app/core/services/api.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:food_app/core/components/appbar.dart';
-import 'package:food_app/core/components/drawer.dart';
+// import 'package:food_app/core/components/appbar.dart';
+// import 'package:food_app/core/components/drawer.dart';
 import 'package:food_app/view/signup.dart';
 
 class SignInView extends StatefulWidget {
@@ -17,24 +17,40 @@ class _SignInState extends State<SignInView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void handleSignUp() {
+  void handleSignIn() {
+    print("Sign In Button Pressed");
     final String email = _emailController.text.trim();
     final String password = _passwordController.text.trim();
 
     print("Email: $email\nPassword: $password");
 
-    ApiServices.post("example url", {
-      "email": email,
-      "password": password,
-    });
+    if (email.isNotEmpty && password.isNotEmpty) {
+      ApiServices.post(
+        "example url",
+        {
+          "email": email,
+          "password": password,
+        },
+      );
+    } else {
+      Get.snackbar(
+        "error".tr,
+        "please_fill_in_the_required_fields".tr,
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Theme.of(context).colorScheme.error,
+        colorText: Theme.of(context).colorScheme.onError,
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: const CustomAppBar(),
-      drawer: const CustomDrawer(),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
+      ),
+      // drawer: const CustomDrawer(),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -48,7 +64,7 @@ class _SignInState extends State<SignInView> {
                 ),
                 const SizedBox(height: 25),
                 Text(
-                  "Sign In",
+                  "sign_in".tr,
                   style: GoogleFonts.bebasNeue(
                     fontSize: 52,
                     color: Theme.of(context).colorScheme.primary,
@@ -56,7 +72,7 @@ class _SignInState extends State<SignInView> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  "Sign in to continue",
+                  "sign_in_to_continue".tr,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                     fontSize: 20,
@@ -73,12 +89,12 @@ class _SignInState extends State<SignInView> {
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 20.0),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "Email",
+                          hintText: "email".tr,
                         ),
                       ),
                     ),
@@ -95,13 +111,13 @@ class _SignInState extends State<SignInView> {
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 20.0),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
                         obscureText: true,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "Password",
+                          hintText: "password".tr,
                         ),
                       ),
                     ),
@@ -110,19 +126,22 @@ class _SignInState extends State<SignInView> {
                 const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(15.0),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Sign In",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.background,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                  child: GestureDetector(
+                    onTap: handleSignIn,
+                    child: Container(
+                      padding: const EdgeInsets.all(15.0),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "sign_in".tr,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.background,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),
@@ -133,7 +152,7 @@ class _SignInState extends State<SignInView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don't have an account? ",
+                      "dont_have_an_account".tr,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.primary,

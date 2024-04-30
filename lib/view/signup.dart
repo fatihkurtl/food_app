@@ -1,9 +1,7 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:food_app/core/components/drawer.dart';
+// import 'package:food_app/core/components/drawer.dart';
 import 'package:food_app/view/signin.dart';
 import 'package:food_app/core/services/api.dart';
 
@@ -21,20 +19,41 @@ class _SignUpState extends State<SignUpView> {
   final TextEditingController _confirmPasswordController = TextEditingController();
 
   void handleSignUp() {
+    print("Sign Up Button Pressed");
     final String name = _nameController.text.trim();
     final String email = _emailController.text.trim();
     final String password = _passwordController.text.trim();
     final String confirmPassword = _confirmPasswordController.text.trim();
 
     print("Name: $name\nEmail: $email\nPassword: $password\nConfirm Password: $confirmPassword");
-    ApiServices.post(
-      "example url",
-      {
-        "name": name,
-        "email": email,
-        "password": password,
-      },
-    );
+    if (password == confirmPassword) {
+      if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty && confirmPassword.isNotEmpty) {
+        ApiServices.post(
+          "example url",
+          {
+            "name": name,
+            "email": email,
+            "password": password,
+          },
+        );
+      } else {
+        Get.snackbar(
+          "error".tr,
+          "please_fill_in_the_required_fields".tr,
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Theme.of(context).colorScheme.error,
+          colorText: Theme.of(context).colorScheme.onError,
+        );
+      }
+    } else {
+      Get.snackbar(
+        "error".tr,
+        "passwords_do_not_match".tr,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Theme.of(context).colorScheme.error,
+        colorText: Theme.of(context).colorScheme.onError,
+      );
+    }
   }
 
   @override
@@ -44,7 +63,7 @@ class _SignUpState extends State<SignUpView> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
-      drawer: const CustomDrawer(),
+      // drawer: const CustomDrawer(),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -58,7 +77,7 @@ class _SignUpState extends State<SignUpView> {
                 ),
                 const SizedBox(height: 25),
                 Text(
-                  "Sign Up",
+                  "sign_up".tr,
                   style: GoogleFonts.bebasNeue(
                     fontSize: 52,
                     color: Theme.of(context).colorScheme.primary,
@@ -66,7 +85,7 @@ class _SignUpState extends State<SignUpView> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  "Create an account to continue",
+                  "create_an_account_to_continue".tr,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                     fontSize: 20,
@@ -83,12 +102,12 @@ class _SignUpState extends State<SignUpView> {
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 20.0),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "Name",
+                          hintText: "name".tr,
                         ),
                       ),
                     ),
@@ -105,12 +124,12 @@ class _SignUpState extends State<SignUpView> {
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 20.0),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "Email",
+                          hintText: "email".tr,
                         ),
                       ),
                     ),
@@ -127,13 +146,13 @@ class _SignUpState extends State<SignUpView> {
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 20.0),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
                         obscureText: true,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "Password",
+                          hintText: "password".tr,
                         ),
                       ),
                     ),
@@ -150,13 +169,13 @@ class _SignUpState extends State<SignUpView> {
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 20.0),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
                         obscureText: true,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "Confirm Password",
+                          hintText: "confirm_password".tr,
                         ),
                       ),
                     ),
@@ -165,19 +184,22 @@ class _SignUpState extends State<SignUpView> {
                 const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(15.0),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.background,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                  child: GestureDetector(
+                    onTap: handleSignUp,
+                    child: Container(
+                      padding: const EdgeInsets.all(15.0),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "sign_up".tr,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.background,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),
@@ -188,7 +210,7 @@ class _SignUpState extends State<SignUpView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Already have an account? ',
+                      "already_have_an_account".tr,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.primary,

@@ -65,6 +65,29 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
   - Another bullet point
   1. This is a numbered list
   2. Another numbered item
+  # This is a Heading 1
+  ## This is a Heading 2
+  This is a paragraph with some *italic* and **bold** text.
+  - This is a bullet point
+  - Another bullet point
+  1. This is a numbered list
+  2. Another numbered item
+  ![Image](${widget.imageUrl})
+  # This is a Heading 1
+  ## This is a Heading 2
+  This is a paragraph with some *italic* and **bold** text.
+  - This is a bullet point
+  - Another bullet point
+  1. This is a numbered list
+  2. Another numbered item
+  ![Image](${widget.imageUrl})
+  # This is a Heading 1
+  ## This is a Heading 2
+  This is a paragraph with some *italic* and **bold** text.
+  - This is a bullet point
+  - Another bullet point
+  1. This is a numbered list
+  2. Another numbered item
   """,
         styleSheet: MarkdownStyleSheet(
           h1: const TextStyle(fontSize: 24),

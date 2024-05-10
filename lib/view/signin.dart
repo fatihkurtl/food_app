@@ -92,6 +92,7 @@ class _SignInState extends State<SignInView> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
+                        controller: _emailController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: "email".tr,
@@ -114,6 +115,7 @@ class _SignInState extends State<SignInView> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
+                        controller: _passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
                           border: InputBorder.none,

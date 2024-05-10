@@ -68,6 +68,8 @@ class _HomeViewState extends State<HomeView> {
                         child: Image.network(
                           i.toString(),
                           fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
                         ),
                       ),
                     );

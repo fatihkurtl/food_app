@@ -6,6 +6,8 @@ import 'package:food_app/utils/constants.dart';
 
 class ApiServices {
   static Future<Map<String, dynamic>> post(String url, Map<String, dynamic> body) async {
+    // print('url' + url);
+    // print('register data' + body.toString());
     final response = await http.post(
       Uri.parse(Constants.baseUrl + url),
       headers: {

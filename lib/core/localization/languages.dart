@@ -63,6 +63,7 @@ class Languages extends Translations {
           // sign up warning snackbar
           "error": "Hata",
           "please_fill_in_the_required_fields": "Lütfen gerekli alanları doldurunuz",
+          "passwords_do_not_match": "Şifreler eşleşmiyor",
         },
         "en_US": {
           // appbar
@@ -119,6 +120,7 @@ class Languages extends Translations {
           // sign up warning snackbar
           "error": "Error",
           "please_fill_in_the_required_fields": "Please fill in the required fields",
+          "passwords_do_not_match": "Passwords do not match",
         },
       };
 }

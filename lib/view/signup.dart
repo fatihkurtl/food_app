@@ -26,8 +26,8 @@ class _SignUpState extends State<SignUpView> {
     final String confirmPassword = _confirmPasswordController.text.trim();
 
     print("Name: $name\nEmail: $email\nPassword: $password\nConfirm Password: $confirmPassword");
-    if (password == confirmPassword) {
-      if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty && confirmPassword.isNotEmpty) {
+    if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty && confirmPassword.isNotEmpty) {
+      if (password == confirmPassword) {
         ApiServices.post(
           "example url",
           {
@@ -39,7 +39,7 @@ class _SignUpState extends State<SignUpView> {
       } else {
         Get.snackbar(
           "error".tr,
-          "please_fill_in_the_required_fields".tr,
+          "passwords_do_not_match".tr,
           snackPosition: SnackPosition.TOP,
           backgroundColor: Theme.of(context).colorScheme.error,
           colorText: Theme.of(context).colorScheme.onError,
@@ -48,8 +48,8 @@ class _SignUpState extends State<SignUpView> {
     } else {
       Get.snackbar(
         "error".tr,
-        "passwords_do_not_match".tr,
-        snackPosition: SnackPosition.BOTTOM,
+        "please_fill_in_the_required_fields".tr,
+        snackPosition: SnackPosition.TOP,
         backgroundColor: Theme.of(context).colorScheme.error,
         colorText: Theme.of(context).colorScheme.onError,
       );
@@ -105,6 +105,7 @@ class _SignUpState extends State<SignUpView> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
+                        controller: _nameController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: "name".tr,
@@ -127,6 +128,7 @@ class _SignUpState extends State<SignUpView> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
+                        controller: _emailController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: "email".tr,
@@ -149,6 +151,7 @@ class _SignUpState extends State<SignUpView> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
+                        controller: _passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -172,6 +175,7 @@ class _SignUpState extends State<SignUpView> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
+                        controller: _confirmPasswordController,
                         obscureText: true,
                         decoration: InputDecoration(
                           border: InputBorder.none,

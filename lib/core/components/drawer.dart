@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/core/models/route_models.dart';
 import 'package:get/get.dart';
 // import 'package:food_app/view/home.dart';
 // import 'package:food_app/view/recipes.dart';
 import 'package:food_app/view/auth/edit_profile.dart';
-import 'package:food_app/view/auth/profile.dart';
+// import 'package:food_app/view/auth/profile.dart';
 import 'package:food_app/view/signin.dart';
 import 'package:food_app/view/signup.dart';
 import 'package:provider/provider.dart';
@@ -170,11 +171,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 color: Theme.of(context).colorScheme.primary,
               ),
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ProfileView(),
-                  ),
-                );
+                RootIndex.navigationIndex.value = 2;
+                Navigator.of(context).pop();
               },
             ),
             ListTile(

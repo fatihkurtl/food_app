@@ -384,7 +384,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
-
             // ExpansionTile(
             //   title: Text(
             //     Get.locale == const Locale('en', 'US') ? 'English' : 'Türkçe',

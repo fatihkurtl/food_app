@@ -204,7 +204,7 @@ class _RecipesViewState extends State<RecipesView> {
                                       Icons.share,
                                       color: Theme.of(context).colorScheme.primary,
                                     ),
-                                    tooltip: "Paylaş",
+                                    tooltip: "share".tr,
                                     onPressed: () {
                                       if (kDebugMode) {
                                         print('Pressed Share');

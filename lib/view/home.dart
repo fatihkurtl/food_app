@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:food_app/core/models/route_models.dart';
 import 'package:food_app/core/widgets/home/build_card.dart';
 import 'package:food_app/view/recipe_detail.dart';
+import 'package:food_app/core/helpers/helper.dart';
 // import 'package:food_app/core/components/appbar.dart';
 // import 'package:food_app/core/components/drawer.dart';
 // import 'package:food_app/view/recipes.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -281,6 +282,7 @@ class _HomeViewState extends State<HomeView> {
                                 ),
                                 tooltip: "share".tr,
                                 onPressed: () {
+                                  Helper.shareRecipe("recipe url");
                                   if (kDebugMode) {
                                     print('Pressed Share');
                                   }

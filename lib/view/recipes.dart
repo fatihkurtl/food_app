@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:food_app/core/widgets/recipes/category_button.dart';
 import 'package:food_app/view/recipe_detail.dart';
-// import 'package:google_fonts/google_fonts.dart';
+import 'package:food_app/core/helpers/helper.dart';
 // import 'package:food_app/core/components/appbar.dart';
 // import 'package:food_app/core/components/bottom-navigation.dart';
 // import 'package:food_app/core/components/drawer.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class RecipesView extends StatefulWidget {
   const RecipesView({super.key});
@@ -206,6 +206,7 @@ class _RecipesViewState extends State<RecipesView> {
                                     ),
                                     tooltip: "share".tr,
                                     onPressed: () {
+                                      Helper.shareRecipe("recipe url");
                                       if (kDebugMode) {
                                         print('Pressed Share');
                                       }

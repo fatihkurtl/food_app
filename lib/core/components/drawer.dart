@@ -64,46 +64,112 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ),
               ),
             ),
-            SwitchListTile(
+            ListTile(
+              leading: Icon(
+                ThemeModel.isDarkMode.value ? Icons.dark_mode : Icons.light_mode,
+              ),
               title: Text(
                 ThemeModel.isDarkMode.value ? 'dark'.tr : 'light'.tr,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
-              activeColor: Colors.transparent,
-              inactiveThumbColor: Colors.transparent,
-              activeTrackColor: Colors.transparent,
-              inactiveTrackColor: Colors.transparent,
-              trackColor: MaterialStateColor.resolveWith(
-                (states) => Colors.transparent,
+              trailing: PopupMenuButton<bool>(
+                icon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      ThemeModel.isDarkMode.value ? "lib/assets/icons/dark-mode.png" : "lib/assets/icons/light-mode.png",
+                      width: 24,
+                      height: 24,
+                    ),
+                    const SizedBox(width: 8),
+                    Icon(
+                      Icons.arrow_drop_down,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ],
+                ),
+                onSelected: (bool value) {
+                  setState(() {
+                    ThemeModel.isDarkMode.value = value;
+                    Provider.of<ThemeProvider>(context, listen: false).toggleTheme(value);
+                    print('value $value');
+                    print('isDarkMode ${ThemeModel.isDarkMode.value}');
+                  });
+                },
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<bool>>[
+                  PopupMenuItem<bool>(
+                    value: true,
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "lib/assets/icons/dark-mode.png",
+                          width: 24,
+                          height: 24,
+                        ),
+                        const SizedBox(width: 8),
+                        Text("dark".tr),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem<bool>(
+                    value: false,
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "lib/assets/icons/light-mode.png",
+                          width: 24,
+                          height: 24,
+                        ),
+                        const SizedBox(width: 8),
+                        Text("light".tr),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              trackOutlineColor: MaterialStateColor.resolveWith(
-                (states) => Colors.grey[600]!,
-              ),
-              activeThumbImage: const AssetImage(
-                "lib/assets/icons/dark-mode.png",
-              ),
-              inactiveThumbImage: const AssetImage(
-                "lib/assets/icons/light-mode.png",
-              ),
-              value: ThemeModel.isDarkMode.value,
-              onChanged: (value) {
-                setState(() {
-                  ThemeModel.isDarkMode.value = value;
-                  Provider.of<ThemeProvider>(context, listen: false).toggleTheme(value);
-                  print('value $value');
-                  print('isDarkMode ${ThemeModel.isDarkMode.value}');
-                });
-                // Burada tema değişikliğini uygulayabilirsiniz
-                // Örneğin:
-                // if (isDarkMode) {
-                //   Theme.of(context).brightness = Brightness.dark;
-                // } else {
-                //   Theme.of(context).brightness = Brightness.light;
-                // }
-              },
             ),
+            // SwitchListTile(
+            //   title: Text(
+            //     ThemeModel.isDarkMode.value ? 'dark'.tr : 'light'.tr,
+            //     style: TextStyle(
+            //       color: Theme.of(context).colorScheme.primary,
+            //     ),
+            //   ),
+            //   activeColor: Colors.transparent,
+            //   inactiveThumbColor: Colors.transparent,
+            //   activeTrackColor: Colors.transparent,
+            //   inactiveTrackColor: Colors.transparent,
+            //   trackColor: MaterialStateColor.resolveWith(
+            //     (states) => Colors.transparent,
+            //   ),
+            //   trackOutlineColor: MaterialStateColor.resolveWith(
+            //     (states) => Colors.grey[600]!,
+            //   ),
+            //   activeThumbImage: const AssetImage(
+            //     "lib/assets/icons/dark-mode.png",
+            //   ),
+            //   inactiveThumbImage: const AssetImage(
+            //     "lib/assets/icons/light-mode.png",
+            //   ),
+            //   value: ThemeModel.isDarkMode.value,
+            //   onChanged: (value) {
+            //     setState(() {
+            //       ThemeModel.isDarkMode.value = value;
+            //       Provider.of<ThemeProvider>(context, listen: false).toggleTheme(value);
+            //       print('value $value');
+            //       print('isDarkMode ${ThemeModel.isDarkMode.value}');
+            //     });
+            //     // Burada tema değişikliğini uygulayabilirsiniz
+            //     // Örneğin:
+            //     // if (isDarkMode) {
+            //     //   Theme.of(context).brightness = Brightness.dark;
+            //     // } else {
+            //     //   Theme.of(context).brightness = Brightness.light;
+            //     // }
+            //   },
+            // ),
             ListTile(
               leading: Icon(
                 Icons.language,

@@ -40,6 +40,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
     }
   }
 
+  void _updateLanguage(Locale locale) {
+    setState(() {
+      Get.updateLocale(locale);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -98,42 +104,105 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 // }
               },
             ),
-            SwitchListTile(
+            ListTile(
+              leading: Icon(
+                Icons.language,
+                color: Theme.of(context).colorScheme.primary,
+              ),
               title: Text(
                 Get.locale == const Locale("en", "US") ? "English" : "Türkçe",
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
-              activeColor: Colors.transparent,
-              inactiveThumbColor: Colors.transparent,
-              activeTrackColor: Colors.transparent,
-              inactiveTrackColor: Colors.transparent,
-              trackColor: MaterialStateColor.resolveWith(
-                (states) => Colors.transparent,
+              trailing: PopupMenuButton<Locale>(
+                icon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      Get.locale == const Locale("en", "US") ? "lib/assets/icons/usa-flag.png" : "lib/assets/icons/tr-flag.png",
+                      width: 24,
+                      height: 24,
+                    ),
+                    const SizedBox(width: 8),
+                    Icon(
+                      Icons.arrow_drop_down,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ],
+                ),
+                onSelected: (Locale locale) {
+                  _updateLanguage(locale);
+                  Get.locale == const Locale("en", "US") ? toggleLanguage(const Locale("en", "US")) : toggleLanguage(const Locale("tr", "US"));
+                },
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<Locale>>[
+                  PopupMenuItem<Locale>(
+                    value: const Locale("en", "US"),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "lib/assets/icons/usa-flag.png",
+                          width: 24,
+                          height: 24,
+                        ),
+                        const SizedBox(width: 8),
+                        const Text("English"),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem<Locale>(
+                    value: const Locale("tr", "TR"),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "lib/assets/icons/tr-flag.png",
+                          width: 24,
+                          height: 24,
+                        ),
+                        const SizedBox(width: 8),
+                        const Text("Türkçe"),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              trackOutlineColor: MaterialStateColor.resolveWith(
-                (states) => Colors.grey[600]!,
-              ),
-              activeThumbImage: const AssetImage(
-                "lib/assets/icons/usa-flag.png",
-              ),
-              inactiveThumbImage: const AssetImage(
-                "lib/assets/icons/tr-flag.png",
-              ),
-              value: Get.locale!.languageCode == 'en',
-              onChanged: (value) {
-                setState(() {
-                  if (value) {
-                    Get.updateLocale(const Locale("en", "US"));
-                    toggleLanguage(const Locale("en", "US"));
-                  } else {
-                    Get.updateLocale(const Locale("tr", "TR"));
-                    toggleLanguage(const Locale("tr", "TR"));
-                  }
-                });
-              },
             ),
+            // SwitchListTile(
+            //   title: Text(
+            //     Get.locale == const Locale("en", "US") ? "English" : "Türkçe",
+            //     style: TextStyle(
+            //       color: Theme.of(context).colorScheme.primary,
+            //     ),
+            //   ),
+            //   activeColor: Colors.transparent,
+            //   inactiveThumbColor: Colors.transparent,
+            //   activeTrackColor: Colors.transparent,
+            //   inactiveTrackColor: Colors.transparent,
+            //   trackColor: MaterialStateColor.resolveWith(
+            //     (states) => Colors.transparent,
+            //   ),
+            //   trackOutlineColor: MaterialStateColor.resolveWith(
+            //     (states) => Colors.grey[600]!,
+            //   ),
+            //   activeThumbImage: const AssetImage(
+            //     "lib/assets/icons/usa-flag.png",
+            //   ),
+            //   inactiveThumbImage: const AssetImage(
+            //     "lib/assets/icons/tr-flag.png",
+            //   ),
+            //   value: Get.locale!.languageCode == 'en',
+            //   onChanged: (value) {
+            //     setState(() {
+            //       if (value) {
+            //         Get.updateLocale(const Locale("en", "US"));
+            //         toggleLanguage(const Locale("en", "US"));
+            //       } else {
+            //         Get.updateLocale(const Locale("tr", "TR"));
+            //         toggleLanguage(const Locale("tr", "TR"));
+            //       }
+            //     });
+            //   },
+            // ),
             ListTile(
               leading: Icon(
                 Icons.person,

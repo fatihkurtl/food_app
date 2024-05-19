@@ -37,7 +37,7 @@ class _ProfileEditViewState extends State<ProfileEditView> {
   @override
   void initState() {
     super.initState();
-    ApiServices.getUser("example url", "example token");
+    // ApiServices.getUser("example url", "example token");
   }
 
   @override

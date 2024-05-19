@@ -17,7 +17,7 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   void initState() {
     super.initState();
-    ApiServices.getUser("example url", "example token");
+    // ApiServices.getUser("example url", "example token");
   }
 
   @override

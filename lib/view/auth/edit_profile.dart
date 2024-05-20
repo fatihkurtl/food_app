@@ -3,9 +3,6 @@ import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-// import 'package:food_app/core/components/appbar.dart';
-// import 'package:food_app/core/components/drawer.dart';
-// import 'package:food_app/core/services/api.dart';
 
 class ProfileEditView extends StatefulWidget {
   const ProfileEditView({super.key});
@@ -87,8 +84,21 @@ class _ProfileEditViewState extends State<ProfileEditView> {
               child: CircleAvatar(
                 radius: 100.0,
                 backgroundColor: Colors.grey,
-                backgroundImage: _imageFile != null ? FileImage(_imageFile!) : const AssetImage("lib/assets/images/user.png") as ImageProvider,
-                child: _imageFile == null ? const Icon(Icons.camera_alt, size: 40, color: Colors.white) : null,
+                child: ClipOval(
+                  child: _imageFile != null
+                      ? Image.file(
+                          _imageFile!,
+                          width: 200.0,
+                          height: 200.0,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          "lib/assets/images/user.png",
+                          width: 200.0,
+                          height: 200.0,
+                          fit: BoxFit.cover,
+                        ),
+                ),
               ),
             ),
             const SizedBox(height: 16),

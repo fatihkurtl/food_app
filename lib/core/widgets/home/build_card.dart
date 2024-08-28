@@ -4,13 +4,17 @@ import 'package:food_app/view/recipe_detail.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BuildCard extends StatefulWidget {
+  final int recipeId;
   final String foodName;
   final String imageUrl;
+  final String recipeContent;
 
   const BuildCard({
     super.key,
+    required this.recipeId,
     required this.foodName,
     required this.imageUrl,
+    required this.recipeContent,
   });
 
   @override
@@ -29,10 +33,10 @@ class _BuildCardState extends State<BuildCard> {
           context,
           MaterialPageRoute(
             builder: (context) => RecipeDetailView(
-              recipeId: 1,
+              recipeId: widget.recipeId,
               foodName: widget.foodName,
-              imageUrl: widget.imageUrl,
-              recipeContent: 'aaaaaaaaaaa',
+              imageUrl: "http://10.0.2.2:8000/storage/${widget.imageUrl}",
+              recipeContent: widget.recipeContent,
             ),
           ),
         );
@@ -55,20 +59,30 @@ class _BuildCardState extends State<BuildCard> {
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10),
               ),
-              // clipBehavior: Clip.antiAliasWithSaveLayer,
               child: Image.network(
-                widget.imageUrl,
+                "http://10.0.2.2:8000/storage/${widget.imageUrl}",
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: 70,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Center(
+                    child: Icon(Icons.error, color: Colors.red),
+                  );
+                },
               ),
             ),
             const SizedBox(height: 5),
-            Text(
-              widget.foodName,
-              style: GoogleFonts.bebasNeue(
-                fontSize: 15,
-                color: Theme.of(context).colorScheme.primary,
+            Expanded(
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  widget.foodName,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.bebasNeue(
+                    fontSize: 15,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
               ),
             ),
           ],

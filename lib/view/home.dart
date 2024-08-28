@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:food_app/core/models/carousel_models.dart';
+import 'package:food_app/core/models/recipes_models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:food_app/core/models/route_models.dart';
 import 'package:food_app/core/widgets/home/build_card.dart';
 import 'package:food_app/view/recipe_detail.dart';
 import 'package:food_app/core/helpers/helper.dart';
+
+import 'package:food_app/core/widgets/home/carousel_slider.dart';
 // import 'package:food_app/core/components/appbar.dart';
 // import 'package:food_app/core/components/drawer.dart';
 // import 'package:food_app/view/recipes.dart';
@@ -19,13 +22,29 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  List<String> sliderImages = [
-    'https://www.medibank.com.au/content/dam/livebetter/en/images/migrated/324538f6338f4a575843949de2a7d960/healthy-cooking.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE7-oELEJYx08UvT6L_1YBF9LZtqMORFpIvYWCSqm_uxZGvzKWXFw7qXEE587FtAIyLHE&usqp=CAU',
-    'https://www.hsph.harvard.edu/nutritionsource/wp-content/uploads/sites/30/2018/11/shutterstock_484530181.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxPx2ASfhdRKcXjiLAhZ0CvosEffkutIUqQG0OhIaeAw&s',
-    'https://www.trillmag.com/wp-content/uploads/2023/05/shutterstock_271174232-1.jpg',
-  ];
+  var carousels = <Carousel>[].obs;
+  var popularRecipes = <Recipe>[].obs;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCarousels();
+    fetchPopularRecipes();
+  }
+
+  Future<void> fetchCarousels() async {
+    await Helper.getAllCarousels();
+    setState(() {
+      carousels.value = Helper.carousels;
+    });
+  }
+
+  Future<void> fetchPopularRecipes() async {
+    await Helper.getPopularRecipes();
+    setState(() {
+      popularRecipes.value = Helper.popularRecipes;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,49 +54,8 @@ class _HomeViewState extends State<HomeView> {
         // mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.only(
-              top: 10.0,
-            ),
-            child: CarouselSlider(
-              options: CarouselOptions(
-                height: 200.0,
-                autoPlay: true,
-                autoPlayInterval: const Duration(seconds: 5),
-              ),
-              items: sliderImages.map((i) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      // child: Text(
-                      //   'text $i',
-                      //   style: const TextStyle(
-                      //     fontSize: 16.0,
-                      //   ),
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        child: Image.network(
-                          i.toString(),
-                          fit: BoxFit.cover,
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                        ),
-                      ),
-                    );
-                  },
-                );
-              }).toList(),
-            ),
+            padding: const EdgeInsets.only(top: 10.0),
+            child: CarouselWidget(carousels: carousels),
           ),
           const SizedBox(height: 10),
           Row(
@@ -100,53 +78,21 @@ class _HomeViewState extends State<HomeView> {
               ),
             ],
           ),
-          const SingleChildScrollView(
+          SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                BuildCard(
-                  foodName: "Burger",
-                  imageUrl: "https://static.vecteezy.com/system/resources/thumbnails/019/023/604/small_2x/front-view-tasty-meat-burger-with-cheese-and-salad-free-photo.jpg",
-                ),
-                SizedBox(width: 10),
-                BuildCard(
-                  foodName: "Pizza",
-                  imageUrl:
-                      "https://www.allrecipes.com/thmb/fFW1o307WSqFFYQ3-QXYVpnFj6E=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/48727-Mikes-homemade-pizza-DDMFS-beauty-4x3-BG-2974-a7a9842c14e34ca699f3b7d7143256cf.jpg",
-                ),
-                SizedBox(width: 10),
-                BuildCard(
-                  foodName: "Pasta",
-                  imageUrl: "https://savvybites.co.uk/wp-content/uploads/2023/12/Creamy-tomato-pasta-2.jpg",
-                ),
-                SizedBox(width: 10),
-                BuildCard(
-                  foodName: "Salad",
-                  imageUrl: "https://www.recipetineats.com/wp-content/uploads/2021/08/Garden-Salad_47-SQ.jpg",
-                ),
-                SizedBox(width: 10),
-                BuildCard(
-                  foodName: "Burger",
-                  imageUrl: "https://static.vecteezy.com/system/resources/thumbnails/019/023/604/small_2x/front-view-tasty-meat-burger-with-cheese-and-salad-free-photo.jpg",
-                ),
-                SizedBox(width: 10),
-                BuildCard(
-                  foodName: "Pizza",
-                  imageUrl:
-                      "https://www.allrecipes.com/thmb/fFW1o307WSqFFYQ3-QXYVpnFj6E=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/48727-Mikes-homemade-pizza-DDMFS-beauty-4x3-BG-2974-a7a9842c14e34ca699f3b7d7143256cf.jpg",
-                ),
-                SizedBox(width: 10),
-                BuildCard(
-                  foodName: "Pasta",
-                  imageUrl: "https://savvybites.co.uk/wp-content/uploads/2023/12/Creamy-tomato-pasta-2.jpg",
-                ),
-                SizedBox(width: 10),
-                BuildCard(
-                  foodName: "Salad",
-                  imageUrl: "https://www.recipetineats.com/wp-content/uploads/2021/08/Garden-Salad_47-SQ.jpg",
-                ),
-              ],
+              children: popularRecipes.map((recipe) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 10.0),
+                  child: BuildCard(
+                    recipeId: recipe.id,
+                    foodName: recipe.name,
+                    imageUrl: recipe.image,
+                    recipeContent: recipe.content,
+                  ),
+                );
+              }).toList(),
             ),
           ),
           const SizedBox(height: 10),

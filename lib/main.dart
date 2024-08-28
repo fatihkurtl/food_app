@@ -5,7 +5,10 @@ import 'package:food_app/core/theme/theme_provider.dart';
 import 'package:food_app/core/components/bottom_navigation.dart';
 import 'package:provider/provider.dart';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 void main() {
+  dotenv.load(fileName: '.env');
   runApp(
     ChangeNotifierProvider(
       create: (context) => ThemeProvider(),

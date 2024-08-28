@@ -29,7 +29,7 @@ class _RecipesViewState extends State<RecipesView> {
 
   Future<void> fetchRecipes() async {
     try {
-      await Helper.getAllRecipes();
+      Helper.getAllRecipes();
       setState(() {
         recipes = Helper.recipes;
       });

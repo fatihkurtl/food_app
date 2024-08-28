@@ -35,6 +35,7 @@ class ApiServices {
     });
 
     if (response.statusCode == 200) {
+      // print('get main' + response.body);
       return {
         "statusCode": response.statusCode,
         "body": response.body,

@@ -105,6 +105,7 @@ class _ProfileViewState extends State<ProfileView> {
                           recipeId: index,
                           foodName: "Food",
                           imageUrl: "https://www.recipetineats.com/wp-content/uploads/2021/08/Garden-Salad_47-SQ.jpg",
+                          recipeContent: 'Recipe Content',
                         ),
                       ),
                     );

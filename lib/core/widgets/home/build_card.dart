@@ -32,6 +32,7 @@ class _BuildCardState extends State<BuildCard> {
               recipeId: 1,
               foodName: widget.foodName,
               imageUrl: widget.imageUrl,
+              recipeContent: 'aaaaaaaaaaa',
             ),
           ),
         );

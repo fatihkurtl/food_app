@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:food_app/core/widgets/recipes/category_button.dart';
 import 'package:food_app/view/recipe_detail.dart';
 import 'package:food_app/core/helpers/helper.dart';
+import 'package:food_app/core/models/recipes_models.dart';
+
 // import 'package:food_app/core/components/appbar.dart';
 // import 'package:food_app/core/components/bottom-navigation.dart';
 // import 'package:food_app/core/components/drawer.dart';
@@ -17,6 +19,26 @@ class RecipesView extends StatefulWidget {
 }
 
 class _RecipesViewState extends State<RecipesView> {
+  List<Recipe> recipes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchRecipes();
+  }
+
+  Future<void> fetchRecipes() async {
+    try {
+      await Helper.getAllRecipes();
+      setState(() {
+        recipes = Helper.recipes;
+      });
+    } catch (e) {
+      print('Error fetching recipes: $e');
+      SnackBar(content: Text('Error fetching recipes: $e'));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -52,57 +74,20 @@ class _RecipesViewState extends State<RecipesView> {
         ),
         const SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: 8.0,
-              right: 8.0,
-              bottom: 8.0,
-              top: 0.0,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CategoryButton(
-                  text: "main_meals",
-                ),
-                SizedBox(width: 10),
-                CategoryButton(
-                  text: "soups",
-                ),
-                SizedBox(width: 10),
-                CategoryButton(
-                  text: "salads",
-                ),
-                SizedBox(width: 10),
-                CategoryButton(
-                  text: "breakfast_foods",
-                ),
-                SizedBox(width: 10),
-                CategoryButton(
-                  text: "desserts",
-                ),
-                SizedBox(width: 10),
-                CategoryButton(
-                  text: "drinks",
-                ),
-                SizedBox(width: 10),
-                CategoryButton(
-                  text: "vegan_vegetarian",
-                ),
-                SizedBox(width: 10),
-                CategoryButton(
-                  text: "pastas",
-                ),
-                SizedBox(width: 10),
-                CategoryButton(
-                  text: "world_cuisines",
-                ),
-                SizedBox(width: 10),
-                CategoryButton(
-                  text: "healthy_recipes",
-                ),
-              ],
-            ),
+          child: Wrap(
+            spacing: 10.0,
+            children: [
+              CategoryButton(text: "main_meals"),
+              CategoryButton(text: "soups"),
+              CategoryButton(text: "salads"),
+              CategoryButton(text: "breakfast_foods"),
+              CategoryButton(text: "desserts"),
+              CategoryButton(text: "drinks"),
+              CategoryButton(text: "vegan_vegetarian"),
+              CategoryButton(text: "pastas"),
+              CategoryButton(text: "world_cuisines"),
+              CategoryButton(text: "healthy_recipes"),
+            ],
           ),
         ),
         Expanded(
@@ -116,20 +101,22 @@ class _RecipesViewState extends State<RecipesView> {
                   crossAxisCount: 2,
                   childAspectRatio: 0.9,
                 ),
-                itemCount: 16,
+                itemCount: recipes.length,
                 itemBuilder: (context, index) {
+                  final recipe = recipes[index];
                   return InkWell(
                     onTap: () {
                       if (kDebugMode) {
-                        print('Tapped Recipes $index');
+                        print('Tapped Recipe: ${recipe.name}');
                       }
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => RecipeDetailView(
-                            recipeId: index,
-                            foodName: "Food",
-                            imageUrl: "https://www.recipetineats.com/wp-content/uploads/2021/08/Garden-Salad_47-SQ.jpg",
+                            recipeId: recipe.id,
+                            foodName: recipe.name,
+                            imageUrl: "http://10.0.2.2:8000/storage/${recipe.image}",
+                            recipeContent: recipe.content,
                           ),
                         ),
                       );
@@ -139,14 +126,6 @@ class _RecipesViewState extends State<RecipesView> {
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.secondary,
                         borderRadius: BorderRadius.circular(10),
-                        // boxShadow: const [
-                        //   BoxShadow(
-                        //     color: Colors.grey,
-                        //     blurRadius: 5,
-                        //     spreadRadius: 0.5,
-                        //     offset: Offset(0, 2),
-                        //   ),
-                        // ],
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -158,8 +137,24 @@ class _RecipesViewState extends State<RecipesView> {
                                 topRight: Radius.circular(10),
                               ),
                               child: Image.network(
-                                "https://www.recipetineats.com/wp-content/uploads/2021/08/Garden-Salad_47-SQ.jpg",
+                                "http://10.0.2.2:8000/storage/${recipe.image}",
                                 fit: BoxFit.cover,
+                                loadingBuilder: (context, child, loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child;
+                                  } else {
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1) : null,
+                                      ),
+                                    );
+                                  }
+                                },
+                                errorBuilder: (context, error, stackTrace) {
+                                  return const Center(
+                                    child: Text('Resim yüklenemedi'),
+                                  );
+                                },
                               ),
                             ),
                           ),
@@ -183,18 +178,22 @@ class _RecipesViewState extends State<RecipesView> {
                                     },
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Text(
-                                    "Food",
-                                    style: GoogleFonts.roboto(
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context).colorScheme.primary,
-                                      textStyle: const TextStyle(
-                                        fontSize: 18,
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      recipe.name,
+                                      style: GoogleFonts.roboto(
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context).colorScheme.primary,
+                                        textStyle: const TextStyle(
+                                          fontSize: 14,
+                                        ),
                                       ),
+                                      textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
                                     ),
-                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                                 Padding(
@@ -206,7 +205,7 @@ class _RecipesViewState extends State<RecipesView> {
                                     ),
                                     tooltip: "share".tr,
                                     onPressed: () {
-                                      Helper.shareRecipe("recipe url");
+                                      Helper.shareRecipe("http://10.0.2.2:8000/api/app/recipes/${recipe.id}");
                                       if (kDebugMode) {
                                         print('Pressed Share');
                                       }

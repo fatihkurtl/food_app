@@ -8,8 +8,9 @@ class RecipeDetailView extends StatefulWidget {
   final int recipeId;
   final String foodName;
   final String imageUrl;
+  final String recipeContent;
 
-  const RecipeDetailView({super.key, required this.recipeId, required this.imageUrl, required this.foodName});
+  const RecipeDetailView({super.key, required this.recipeId, required this.imageUrl, required this.foodName, required this.recipeContent});
 
   @override
   _RecipeDetailViewState createState() => _RecipeDetailViewState();
@@ -58,36 +59,8 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
         data: """
    ![Image](${widget.imageUrl})
    # ${widget.foodName}
-  # This is a Heading 1
-  ## This is a Heading 2
-  This is a paragraph with some *italic* and **bold** text.
-  - This is a bullet point
-  - Another bullet point
-  1. This is a numbered list
-  2. Another numbered item
-  # This is a Heading 1
-  ## This is a Heading 2
-  This is a paragraph with some *italic* and **bold** text.
-  - This is a bullet point
-  - Another bullet point
-  1. This is a numbered list
-  2. Another numbered item
-  ![Image](${widget.imageUrl})
-  # This is a Heading 1
-  ## This is a Heading 2
-  This is a paragraph with some *italic* and **bold** text.
-  - This is a bullet point
-  - Another bullet point
-  1. This is a numbered list
-  2. Another numbered item
-  ![Image](${widget.imageUrl})
-  # This is a Heading 1
-  ## This is a Heading 2
-  This is a paragraph with some *italic* and **bold** text.
-  - This is a bullet point
-  - Another bullet point
-  1. This is a numbered list
-  2. Another numbered item
+
+   ${widget.recipeContent}
   """,
         styleSheet: MarkdownStyleSheet(
           h1: const TextStyle(fontSize: 24),

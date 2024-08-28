@@ -40,6 +40,7 @@ abstract class AppViews {
         recipeId: 0,
         foodName: "",
         imageUrl: "",
+        recipeContent: "aaa",
       ),
     ),
   ];

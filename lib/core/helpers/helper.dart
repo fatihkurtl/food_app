@@ -5,6 +5,7 @@ import 'package:food_app/core/models/carousel_models.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:food_app/core/services/api.dart';
 import 'package:food_app/core/models/recipes_models.dart';
+import 'package:food_app/core/models/categories_models.dart';
 
 import 'dart:convert';
 
@@ -12,13 +13,13 @@ class Helper {
   static var carousels = <Carousel>[].obs;
   static var popularRecipes = <Recipe>[].obs;
   static var recipes = <Recipe>[].obs;
+  static var categories = <Categories>[].obs;
 
   static Future<List<Carousel>> getAllCarousels() async {
     final response = await ApiServices.get(Constants.carouselsRoute);
     if (response['statusCode'] == 200) {
       final List<dynamic> data = json.decode(response['body']);
       carousels.value = data.map((json) => Carousel.fromJson(json)).toList();
-      print(carousels.length);
     } else {
       carousels.value = [];
     }
@@ -45,6 +46,28 @@ class Helper {
       recipes.value = [];
     }
     return recipes;
+  }
+
+  static Future<List<Recipe>> getRecipesByCategory(int categoryId) async {
+    final response = await ApiServices.get('${Constants.recipesByCategoryRoute}/$categoryId');
+    if (response['statusCode'] == 200) {
+      final List<dynamic> data = json.decode(response['body']);
+      recipes.value = data.map((json) => Recipe.fromJson(json)).toList();
+    } else {
+      recipes.value = [];
+    }
+    return recipes;
+  }
+
+  static Future<List<Categories>> getAllCategories() async {
+    final response = await ApiServices.get(Constants.categoriesRoute);
+    if (response['statusCode'] == 200) {
+      final List<dynamic> data = json.decode(response['body']);
+      categories.value = data.map((json) => Categories.fromJson(json)).toList();
+    } else {
+      categories.value = [];
+    }
+    return categories;
   }
 
   static void shareRecipe(String recipeUrl) {

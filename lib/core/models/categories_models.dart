@@ -1,11 +1,11 @@
-class Category {
+class Categories {
   final int id;
   final String name;
   final String image;
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  Category({
+  Categories({
     required this.id,
     required this.name,
     required this.image,
@@ -13,8 +13,8 @@ class Category {
     required this.updatedAt,
   });
 
-  factory Category.fromJson(Map<String, dynamic> json) {
-    return Category(
+  factory Categories.fromJson(Map<String, dynamic> json) {
+    return Categories(
       id: json['id'],
       name: json['name'],
       image: json['image'],

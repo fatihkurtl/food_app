@@ -6,4 +6,6 @@ class Constants {
   static const String carouselsRoute = "/carousel_photos";
   static const String popularRecipesRoute = "/popular_recipes";
   static const String recipesRoute = "/recipes";
+  static const String categoriesRoute = "/categories";
+  static const String recipesByCategoryRoute = "/category";
 }

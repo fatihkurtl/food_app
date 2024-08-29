@@ -4,11 +4,17 @@ import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CategoryButton extends StatefulWidget {
+  final int categoryId;
+  final int selectedCategoryId;
   final String text;
+  final void Function(int) onSelect;
 
   const CategoryButton({
     super.key,
+    required this.categoryId,
+    required this.selectedCategoryId,
     required this.text,
+    required this.onSelect,
   });
 
   @override
@@ -20,6 +26,7 @@ class _CategoryButtonState extends State<CategoryButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
+        widget.onSelect(widget.categoryId);
         if (kDebugMode) {
           print("Selected Category: ${widget.text}");
         }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/core/models/categories_models.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,11 +22,18 @@ class RecipesView extends StatefulWidget {
 
 class _RecipesViewState extends State<RecipesView> {
   var recipes = <Recipe>[].obs;
+  var categories = <Categories>[].obs;
+  var selectedCategoryId = 0.obs;
 
   @override
   void initState() {
     super.initState();
-    fetchRecipes();
+    if (selectedCategoryId.value == 0) {
+      fetchRecipes();
+    } else {
+      fetchRecipesByCategory(selectedCategoryId.value);
+    }
+    fetchCategories();
   }
 
   Future<void> fetchRecipes() async {
@@ -35,9 +43,38 @@ class _RecipesViewState extends State<RecipesView> {
         recipes.value = Helper.recipes;
       });
     } catch (e) {
+      SnackBar(content: Text('Error fetching recipes: $e'));
+    }
+  }
+
+  Future<void> fetchRecipesByCategory(int categoryId) async {
+    try {
+      await Helper.getRecipesByCategory(categoryId);
+      setState(() {
+        recipes.value = Helper.recipes;
+      });
+    } catch (e) {
       print('Error fetching recipes: $e');
       SnackBar(content: Text('Error fetching recipes: $e'));
     }
+  }
+
+  Future<void> fetchCategories() async {
+    try {
+      await Helper.getAllCategories();
+      setState(() {
+        categories.value = Helper.categories;
+      });
+    } catch (e) {
+      SnackBar(content: Text('Error fetching categories: $e'));
+    }
+  }
+
+  void onCategorySelected(int categoryId) {
+    setState(() {
+      selectedCategoryId.value = categoryId;
+    });
+    fetchRecipesByCategory(selectedCategoryId.value);
   }
 
   @override
@@ -73,22 +110,22 @@ class _RecipesViewState extends State<RecipesView> {
             ),
           ),
         ),
-        const SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Wrap(
-            spacing: 10.0,
-            children: [
-              CategoryButton(text: "main_meals"),
-              CategoryButton(text: "soups"),
-              CategoryButton(text: "salads"),
-              CategoryButton(text: "breakfast_foods"),
-              CategoryButton(text: "desserts"),
-              CategoryButton(text: "drinks"),
-              CategoryButton(text: "vegan_vegetarian"),
-              CategoryButton(text: "pastas"),
-              CategoryButton(text: "world_cuisines"),
-              CategoryButton(text: "healthy_recipes"),
-            ],
+        Obx(
+          () => SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Wrap(
+              spacing: 10.0,
+              children: categories
+                  .map(
+                    (category) => CategoryButton(
+                      categoryId: category.id,
+                      selectedCategoryId: selectedCategoryId.value,
+                      text: category.name,
+                      onSelect: onCategorySelected,
+                    ),
+                  )
+                  .toList(),
+            ),
           ),
         ),
         Expanded(

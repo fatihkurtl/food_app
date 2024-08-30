@@ -144,135 +144,141 @@ class _HomeViewState extends State<HomeView> {
           SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.9,
-                ),
-                itemCount: recipes.length,
-                itemBuilder: (context, index) {
-                  final recipe = recipes[index];
-                  return InkWell(
-                    onTap: () {
-                      if (kDebugMode) {
-                        print('Tapped Recipe: ${recipe.name}');
-                      }
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RecipeDetailView(
-                            recipeId: recipe.id,
-                            foodName: recipe.name,
-                            imageUrl: "http://10.0.2.2:8000/storage/${recipe.image}",
-                            recipeContent: recipe.content,
-                          ),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
+              child: recipes.isEmpty
+                  ? Center(
+                      child: CustomLoading(
                         color: Theme.of(context).colorScheme.secondary,
-                        borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Expanded(
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
+                    )
+                  : GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.9,
+                      ),
+                      itemCount: recipes.length,
+                      itemBuilder: (context, index) {
+                        final recipe = recipes[index];
+                        return InkWell(
+                          onTap: () {
+                            if (kDebugMode) {
+                              print('Tapped Recipe: ${recipe.name}');
+                            }
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RecipeDetailView(
+                                  recipeId: recipe.id,
+                                  foodName: recipe.name,
+                                  imageUrl: "http://10.0.2.2:8000/storage/${recipe.image}",
+                                  recipeContent: recipe.content,
+                                ),
                               ),
-                              child: Image.network(
-                                "http://10.0.2.2:8000/storage/${recipe.image}",
-                                fit: BoxFit.cover,
-                                loadingBuilder: (context, child, loadingProgress) {
-                                  if (loadingProgress == null) {
-                                    return child;
-                                  } else {
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1) : null,
-                                      ),
-                                    );
-                                  }
-                                },
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Center(
-                                    child: CustomLoading(
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                                  );
-                                },
-                              ),
+                            );
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.secondary,
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(0.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: IconButton(
-                                    icon: Icon(
-                                      Icons.bookmark_border,
-                                      color: Theme.of(context).colorScheme.primary,
+                                Expanded(
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
                                     ),
-                                    tooltip: "save".tr,
-                                    onPressed: () {
-                                      if (kDebugMode) {
-                                        print('Pressed Bookmark');
-                                      }
-                                    },
+                                    child: Image.network(
+                                      "http://10.0.2.2:8000/storage/${recipe.image}",
+                                      fit: BoxFit.cover,
+                                      loadingBuilder: (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        } else {
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1) : null,
+                                            ),
+                                          );
+                                        }
+                                      },
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return Center(
+                                          child: CustomLoading(
+                                            color: Theme.of(context).colorScheme.primary,
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Text(
-                                      recipe.name,
-                                      style: GoogleFonts.roboto(
-                                        fontWeight: FontWeight.bold,
-                                        color: Theme.of(context).colorScheme.primary,
-                                        textStyle: const TextStyle(
-                                          fontSize: 15,
+                                Padding(
+                                  padding: const EdgeInsets.all(0.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.bookmark_border,
+                                            color: Theme.of(context).colorScheme.primary,
+                                          ),
+                                          tooltip: "save".tr,
+                                          onPressed: () {
+                                            if (kDebugMode) {
+                                              print('Pressed Bookmark');
+                                            }
+                                          },
                                         ),
                                       ),
-                                      textAlign: TextAlign.center,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: IconButton(
-                                    icon: Icon(
-                                      Icons.share,
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                                    tooltip: "share".tr,
-                                    onPressed: () {
-                                      RecipesHelper.shareRecipe("http://10.0.2.2:8000/api/app/recipes/${recipe.name}");
-                                      if (kDebugMode) {
-                                        print('Pressed Share');
-                                      }
-                                    },
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: Text(
+                                            recipe.name,
+                                            style: GoogleFonts.roboto(
+                                              fontWeight: FontWeight.bold,
+                                              color: Theme.of(context).colorScheme.primary,
+                                              textStyle: const TextStyle(
+                                                fontSize: 15,
+                                              ),
+                                            ),
+                                            textAlign: TextAlign.center,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 2,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.share,
+                                            color: Theme.of(context).colorScheme.primary,
+                                          ),
+                                          tooltip: "share".tr,
+                                          onPressed: () {
+                                            RecipesHelper.shareRecipe("http://10.0.2.2:8000/api/app/recipes/${recipe.name}");
+                                            if (kDebugMode) {
+                                              print('Pressed Share');
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                        ],
-                      ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
             ),
           ),
         ],

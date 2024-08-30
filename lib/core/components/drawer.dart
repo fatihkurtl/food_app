@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:food_app/core/models/theme_models.dart';
 import 'package:food_app/core/theme/theme_provider.dart';
 import 'package:food_app/core/localization/lang_provider.dart';
+import 'package:food_app/core/middlewares/check_auth.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -21,12 +22,15 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
+  var isLoggedIn = false.obs;
+
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () async {
       await getTheme();
     });
+    _authData();
   }
 
   Future<void> getTheme() async {
@@ -44,6 +48,16 @@ class _CustomDrawerState extends State<CustomDrawer> {
     setState(() {
       Get.updateLocale(locale);
     });
+  }
+
+  Future<void> _authData() async {
+    final data = await CheckCustomerAuth.checkAuth();
+
+    if (data['isLoggedIn'] == true) {
+      setState(() {
+        isLoggedIn.value = true;
+      });
+    }
   }
 
   @override
@@ -269,107 +283,97 @@ class _CustomDrawerState extends State<CustomDrawer> {
             //     });
             //   },
             // ),
-            ListTile(
-              leading: Icon(
-                Icons.person,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              title: Text(
-                "edit_profile".tr,
-                style: TextStyle(
+            if (isLoggedIn.value == true)
+              ListTile(
+                leading: Icon(
+                  Icons.person,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ProfileEditView(),
+                title: Text(
+                  "edit_profile".tr,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
                   ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                "saved_recipes".tr,
-                style: TextStyle(color: Theme.of(context).colorScheme.primary),
-              ),
-              leading: Icon(
-                Icons.bookmark,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              onTap: () {
-                RootIndex.navigationIndex.value = 2;
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.login,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              title: Text(
-                "sign_in".tr,
-                style: TextStyle(
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
                   color: Theme.of(context).colorScheme.primary,
                 ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ProfileEditView(),
+                    ),
+                  );
+                },
               ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const SignInView(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.person_add,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              title: Text(
-                "sign_up".tr,
-                style: TextStyle(
+            if (isLoggedIn.value == true)
+              ListTile(
+                title: Text(
+                  "saved_recipes".tr,
+                  style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                ),
+                leading: Icon(
+                  Icons.bookmark,
                   color: Theme.of(context).colorScheme.primary,
                 ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                onTap: () {
+                  RootIndex.navigationIndex.value = 2;
+                  Navigator.of(context).pop();
+                },
               ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const SignUpView(),
+            if (isLoggedIn.value == false)
+              ListTile(
+                leading: Icon(
+                  Icons.login,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                title: Text(
+                  "sign_in".tr,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
                   ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                "logout".tr,
-                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const SignInView(),
+                    ),
+                  );
+                },
               ),
-              leading: Icon(
-                Icons.logout,
-                color: Theme.of(context).colorScheme.primary,
+            if (isLoggedIn.value == false)
+              ListTile(
+                leading: Icon(
+                  Icons.person_add,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                title: Text(
+                  "sign_up".tr,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const SignUpView(),
+                    ),
+                  );
+                },
               ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
             ListTile(
               title: Text(
                 "settings".tr,
@@ -384,6 +388,21 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
+            if (isLoggedIn.value == true)
+              ListTile(
+                title: Text(
+                  "logout".tr,
+                  style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                ),
+                leading: Icon(
+                  Icons.logout,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
             // ExpansionTile(
             //   title: Text(
             //     Get.locale == const Locale('en', 'US') ? 'English' : 'Türkçe',

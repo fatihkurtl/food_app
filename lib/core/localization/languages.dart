@@ -22,8 +22,9 @@ class Languages extends Translations {
           "sign_in": "Giriş Yap",
           "sign_up": "Kayıt Ol",
           "logout": "Çıkış Yap",
+          "settings": "Ayarlar",
           // bottom navigation
-          "home": "Anasayfa",
+          "home": "Ana Sayfa",
           "_recipes": "Tarifler",
           "profile": "Profil",
           // recipes cards
@@ -79,6 +80,7 @@ class Languages extends Translations {
           "sign_in": "Sign In",
           "sign_up": "Sign Up",
           "logout": "Logout",
+          "settings": "Settings",
           // bottom navigation
           "home": "Home",
           "_recipes": "Recipes",

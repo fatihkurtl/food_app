@@ -22,11 +22,13 @@ class CategoryButton extends StatefulWidget {
 }
 
 class _CategoryButtonState extends State<CategoryButton> {
+  int previouslySelectedId = 0;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
         widget.onSelect(widget.categoryId);
+        previouslySelectedId = widget.categoryId;
         if (kDebugMode) {
           print("Selected Category: ${widget.text}");
         }

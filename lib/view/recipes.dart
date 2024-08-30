@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/core/components/snackbars.dart';
 import 'package:food_app/core/models/categories_models.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
@@ -24,6 +25,7 @@ class _RecipesViewState extends State<RecipesView> {
   var recipes = <Recipe>[].obs;
   var categories = <Categories>[].obs;
   var selectedCategoryId = 0.obs;
+  var previouslySelectedCategoryId = 0.obs;
 
   @override
   void initState() {
@@ -65,15 +67,19 @@ class _RecipesViewState extends State<RecipesView> {
         categories.value = RecipesHelper.categories;
       });
     } catch (e) {
-      SnackBar(content: Text('Error fetching categories: $e'));
+      SnackBars.errorSnackBar(message: e.toString());
     }
   }
 
   void onCategorySelected(int categoryId) {
-    setState(() {
+    if (categoryId == selectedCategoryId.value) {
+      selectedCategoryId.value = 0;
+      fetchRecipes();
+    } else {
+      previouslySelectedCategoryId.value = selectedCategoryId.value;
       selectedCategoryId.value = categoryId;
-    });
-    fetchRecipesByCategory(selectedCategoryId.value);
+      fetchRecipesByCategory(categoryId);
+    }
   }
 
   @override
@@ -130,7 +136,7 @@ class _RecipesViewState extends State<RecipesView> {
         Expanded(
           child: recipes.isEmpty
               ? Center(
-                  child: CircularProgressIndicator(
+                  child: CustomLoading(
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 )

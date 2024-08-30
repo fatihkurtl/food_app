@@ -71,5 +71,6 @@ class CustomerAuthHelper {
 
     await prefs.setString('access_token', data['access_token']);
     await prefs.setInt('userId', data['customer']['id']);
+    await prefs.setBool('isLoggedIn', true);
   }
 }

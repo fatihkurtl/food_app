@@ -33,7 +33,7 @@ class _CategoryButtonState extends State<CategoryButton> {
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-          Theme.of(context).colorScheme.secondary,
+          widget.categoryId == widget.selectedCategoryId ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.secondary,
         ),
       ),
       child: Text(

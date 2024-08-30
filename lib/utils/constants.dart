@@ -8,4 +8,6 @@ class Constants {
   static const String recipesRoute = "/recipes";
   static const String categoriesRoute = "/categories";
   static const String recipesByCategoryRoute = "/category";
+  static const String customerRegisterRoute = "/customer/register";
+  static const String customerLoginRoute = "/customer/login";
 }

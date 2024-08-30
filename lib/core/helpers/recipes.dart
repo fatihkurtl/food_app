@@ -9,7 +9,7 @@ import 'package:food_app/core/models/categories_models.dart';
 
 import 'dart:convert';
 
-class Helper {
+class RecipesHelper {
   static var carousels = <Carousel>[].obs;
   static var popularRecipes = <Recipe>[].obs;
   static var recipes = <Recipe>[].obs;

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:food_app/core/components/drawer.dart';
 import 'package:food_app/view/signin.dart';
-import 'package:food_app/core/services/api.dart';
+import 'package:food_app/core/helpers/customers_auth.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -19,23 +19,19 @@ class _SignUpState extends State<SignUpView> {
   final TextEditingController _confirmPasswordController = TextEditingController();
 
   void handleSignUp() {
-    print("Sign Up Button Pressed");
-    final String name = _nameController.text.trim();
+    final String fullName = _nameController.text.trim();
     final String email = _emailController.text.trim();
     final String password = _passwordController.text.trim();
     final String confirmPassword = _confirmPasswordController.text.trim();
 
-    print("Name: $name\nEmail: $email\nPassword: $password\nConfirm Password: $confirmPassword");
-    if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty && confirmPassword.isNotEmpty) {
+    if (fullName.isNotEmpty && email.isNotEmpty && password.isNotEmpty && confirmPassword.isNotEmpty) {
       if (password == confirmPassword) {
-        ApiServices.post(
-          "example url",
-          {
-            "name": name,
-            "email": email,
-            "password": password,
-          },
-        );
+        CustomerAuthHelper.customerRegister({
+          "fullName": fullName,
+          "email": email,
+          "password": password,
+          "confirmPassword": confirmPassword,
+        });
       } else {
         Get.snackbar(
           "error".tr,

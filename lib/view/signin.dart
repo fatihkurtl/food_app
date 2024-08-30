@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/core/services/api.dart';
+import 'package:food_app/core/components/snackbars.dart';
+import 'package:food_app/core/helpers/customers_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:food_app/core/components/appbar.dart';
@@ -25,21 +26,12 @@ class _SignInState extends State<SignInView> {
     print("Email: $email\nPassword: $password");
 
     if (email.isNotEmpty && password.isNotEmpty) {
-      ApiServices.post(
-        "example url",
-        {
-          "email": email,
-          "password": password,
-        },
-      );
+      CustomerAuthHelper.customerLogin({
+        "email": email,
+        "password": password,
+      }, context);
     } else {
-      Get.snackbar(
-        "error".tr,
-        "please_fill_in_the_required_fields".tr,
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Theme.of(context).colorScheme.error,
-        colorText: Theme.of(context).colorScheme.onError,
-      );
+      SnackBars.warningSnackBar(message: 'Lütfen bilgilerinizi giriniz.');
     }
   }
 

@@ -4,7 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:food_app/view/auth/edit_profile.dart';
 import 'package:food_app/view/recipe_detail.dart';
-import 'package:food_app/core/helpers/helper.dart';
+import 'package:food_app/core/helpers/recipes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:food_app/core/services/api.dart';
 
 class ProfileView extends StatefulWidget {
@@ -19,6 +20,17 @@ class _ProfileViewState extends State<ProfileView> {
   void initState() {
     super.initState();
     // ApiServices.getUser("example url", "example token");
+    getCustomerData();
+  }
+
+  static Future<void> getCustomerData() async {
+    //TODO! middleware icine koyulacak burada degil!!!
+    final prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('access_token');
+    int? userId = prefs.getInt('userId');
+
+    print('Token: $token');
+    print('UserId: $userId');
   }
 
   @override
@@ -182,7 +194,7 @@ class _ProfileViewState extends State<ProfileView> {
                                   ),
                                   tooltip: "share".tr,
                                   onPressed: () {
-                                    Helper.shareRecipe("recipe url");
+                                    RecipesHelper.shareRecipe("recipe url");
                                     if (kDebugMode) {
                                       print('Pressed Share');
                                     }

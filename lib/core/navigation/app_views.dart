@@ -11,11 +11,11 @@ import 'package:food_app/view/recipe_detail.dart';
 abstract class AppViews {
   static final views = [
     GetPage(
-      name: Routes.signup,
+      name: Routes.signUp,
       page: () => const SignUpView(),
     ),
     GetPage(
-      name: Routes.signin,
+      name: Routes.signIn,
       page: () => const SignInView(),
     ),
     GetPage(

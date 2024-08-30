@@ -1,5 +1,5 @@
-import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:food_app/core/models/user_model.dart';
 import 'package:food_app/utils/constants.dart';
 // import 'dart:convert';
@@ -13,18 +13,18 @@ class ApiServices {
       headers: {
         "Content-Type": "application/json",
       },
-      body: body,
+      body: jsonEncode(body),
     );
 
     if (response.statusCode == 200) {
       return {
         "statusCode": response.statusCode,
-        "body": response.body,
+        "body": jsonDecode(utf8.decode(response.bodyBytes)),
       };
     } else {
       return {
         "statusCode": response.statusCode,
-        "body": response.body,
+        "body": jsonDecode(utf8.decode(response.bodyBytes)),
       };
     }
   }
@@ -54,23 +54,23 @@ class ApiServices {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token",
       },
-      body: body,
+      body: jsonEncode(body),
     );
 
     if (response.statusCode == 200) {
       return {
         "statusCode": response.statusCode,
-        "body": response.body,
+        "body": jsonDecode(utf8.decode(response.bodyBytes)),
       };
     } else {
       return {
         "statusCode": response.statusCode,
-        "body": response.body,
+        "body": jsonDecode(utf8.decode(response.bodyBytes)),
       };
     }
   }
 
-  static Future<Map<String, dynamic>> getUser(String url, String token) async {
+  static Future<Map<String, dynamic>> getCustomer(String url, String token) async {
     final response = await http.get(
       Uri.parse(Constants.baseUrl + url),
       headers: {

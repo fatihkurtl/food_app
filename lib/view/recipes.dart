@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:food_app/core/widgets/recipes/category_button.dart';
 import 'package:food_app/core/components/loading.dart';
 import 'package:food_app/view/recipe_detail.dart';
-import 'package:food_app/core/helpers/helper.dart';
+import 'package:food_app/core/helpers/recipes.dart';
 import 'package:food_app/core/models/recipes_models.dart';
 
 // import 'package:food_app/core/components/appbar.dart';
@@ -38,9 +38,9 @@ class _RecipesViewState extends State<RecipesView> {
 
   Future<void> fetchRecipes() async {
     try {
-      await Helper.getAllRecipes();
+      await RecipesHelper.getAllRecipes();
       setState(() {
-        recipes.value = Helper.recipes;
+        recipes.value = RecipesHelper.recipes;
       });
     } catch (e) {
       SnackBar(content: Text('Error fetching recipes: $e'));
@@ -49,21 +49,20 @@ class _RecipesViewState extends State<RecipesView> {
 
   Future<void> fetchRecipesByCategory(int categoryId) async {
     try {
-      await Helper.getRecipesByCategory(categoryId);
+      await RecipesHelper.getRecipesByCategory(categoryId);
       setState(() {
-        recipes.value = Helper.recipes;
+        recipes.value = RecipesHelper.recipes;
       });
     } catch (e) {
-      print('Error fetching recipes: $e');
       SnackBar(content: Text('Error fetching recipes: $e'));
     }
   }
 
   Future<void> fetchCategories() async {
     try {
-      await Helper.getAllCategories();
+      await RecipesHelper.getAllCategories();
       setState(() {
-        categories.value = Helper.categories;
+        categories.value = RecipesHelper.categories;
       });
     } catch (e) {
       SnackBar(content: Text('Error fetching categories: $e'));
@@ -251,7 +250,7 @@ class _RecipesViewState extends State<RecipesView> {
                                           ),
                                           tooltip: "share".tr,
                                           onPressed: () {
-                                            Helper.shareRecipe("http://10.0.2.2:8000/api/app/recipes/${recipe.id}");
+                                            RecipesHelper.shareRecipe("http://10.0.2.2:8000/api/app/recipes/${recipe.name}");
                                             if (kDebugMode) {
                                               print('Pressed Share');
                                             }

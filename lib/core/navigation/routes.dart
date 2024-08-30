@@ -1,6 +1,6 @@
 abstract class Routes {
-  static const signup = '/signup';
-  static const signin = '/login';
+  static const signUp = '/signup';
+  static const signIn = '/login';
   static const home = '/';
   static const recipes = '/recipes';
   static const recipeDetail = '/recipe-detail';

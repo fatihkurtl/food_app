@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 class SnackBars {
   static void successSnackBar({required String message}) {
     Get.snackbar(
-      'Basarılı',
-      message,
+      'success'.tr,
+      message.tr,
       backgroundColor: Colors.green[300],
       icon: const Icon(Icons.check),
       duration: const Duration(seconds: 3),
@@ -14,7 +14,7 @@ class SnackBars {
 
   static void errorSnackBar({required String message}) {
     Get.snackbar(
-      'Hata',
+      'error'.tr,
       message,
       backgroundColor: Colors.red[300],
       icon: const Icon(Icons.error),
@@ -28,6 +28,16 @@ class SnackBars {
       message,
       backgroundColor: Colors.orange[300],
       icon: const Icon(Icons.warning),
+      duration: const Duration(seconds: 3),
+    );
+  }
+
+  static void infoSnackBar({required String message}) {
+    Get.snackbar(
+      'informing'.tr,
+      message.tr,
+      backgroundColor: Colors.blue[300],
+      icon: const Icon(Icons.info),
       duration: const Duration(seconds: 3),
     );
   }

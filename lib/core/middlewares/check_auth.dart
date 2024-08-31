@@ -1,4 +1,3 @@
-import 'package:food_app/core/components/snackbars.dart';
 import 'package:food_app/core/navigation/routes.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,18 +6,31 @@ class CheckCustomerAuth {
   static Future<Map<String, dynamic>> checkAuth() async {
     final prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('access_token');
-    int? userId = prefs.getInt('userId');
+    int? customerId = prefs.getInt('customerId');
     bool? isLoggedIn = prefs.getBool('isLoggedIn');
 
-    if (token == null || userId == null || isLoggedIn == null) {
-      SnackBars.warningSnackBar(message: 'Profil sayfasına erişebilmek için giriş yapmanız gerekmektedir.');
-      Get.offAllNamed(Routes.signIn);
+    if (token == null || customerId == null || isLoggedIn == null) {
+      // SnackBars.warningSnackBar(message: 'Profil sayfasına erişebilmek için giriş yapmanız gerekmektedir.');
+      Get.toNamed(Routes.signIn);
     }
 
     print('token: $token');
-    print('userId: $userId');
+    print('customerId: $customerId');
     print('isLoggedIn: $isLoggedIn');
 
-    return {'token': token, 'userId': userId, 'isLoggedIn': isLoggedIn};
+    return {'token': token, 'customerId': customerId, 'isLoggedIn': isLoggedIn};
+  }
+
+  static Future<Map<String, dynamic>> checkCustomer() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('access_token');
+    int? customerId = prefs.getInt('customerId');
+    bool? isLoggedIn = prefs.getBool('isLoggedIn');
+
+    if (token == null || customerId == null || isLoggedIn == null) {
+      return {'token': token, 'customerId': customerId, 'isLoggedIn': isLoggedIn};
+    }
+
+    return {'token': token, 'customerId': customerId, 'isLoggedIn': isLoggedIn};
   }
 }

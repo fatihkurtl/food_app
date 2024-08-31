@@ -39,7 +39,6 @@ class CustomerAuthHelper {
   static Future<Map<String, dynamic>> customerLogin(Map<String, dynamic> body, BuildContext context) async {
     final response = await ApiServices.post(Constants.customerLoginRoute, body);
     try {
-      print(response);
       if (response['statusCode'] == 200) {
         SnackBars.successSnackBar(message: response['body']['message']);
         Navigator.pushNamed(context, Routes.home);
@@ -70,7 +69,21 @@ class CustomerAuthHelper {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setString('access_token', data['access_token']);
-    await prefs.setInt('userId', data['customer']['id']);
+    await prefs.setInt('customerId', data['customer']['id']);
     await prefs.setBool('isLoggedIn', true);
+  }
+
+  static Future<void> customerLogout() async {
+    final response = await ApiServices.post(Constants.customerLogoutRoute, {"customerId": await SharedPreferences.getInstance().then((value) => value.getInt('customerId'))});
+
+    if (response['statusCode'] == 200) {
+      SnackBars.successSnackBar(message: response['body']['message']);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
+
+      Get.offAllNamed(Routes.home);
+    } else {
+      SnackBars.errorSnackBar(message: response['body']['message']);
+    }
   }
 }

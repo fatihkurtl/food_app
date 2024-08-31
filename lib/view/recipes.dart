@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/core/components/snackbars.dart';
-import 'package:food_app/core/models/categories_models.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:food_app/core/components/snackbars.dart';
+import 'package:food_app/core/models/categories_models.dart';
 import 'package:food_app/core/widgets/recipes/category_button.dart';
 import 'package:food_app/core/components/loading.dart';
 import 'package:food_app/view/recipe_detail.dart';
@@ -26,6 +27,7 @@ class _RecipesViewState extends State<RecipesView> {
   var categories = <Categories>[].obs;
   var selectedCategoryId = 0.obs;
   var previouslySelectedCategoryId = 0.obs;
+  var isLoggedIn = false.obs;
 
   @override
   void initState() {
@@ -56,7 +58,7 @@ class _RecipesViewState extends State<RecipesView> {
         recipes.value = RecipesHelper.recipes;
       });
     } catch (e) {
-      SnackBar(content: Text('Error fetching recipes: $e'));
+      SnackBars.errorSnackBar(message: e.toString());
     }
   }
 
@@ -80,6 +82,10 @@ class _RecipesViewState extends State<RecipesView> {
       selectedCategoryId.value = categoryId;
       fetchRecipesByCategory(categoryId);
     }
+  }
+
+  void handleSaveRecipe(int recipeId) async {
+    RecipesHelper.saveRecipe(recipeId);
   }
 
   @override
@@ -225,6 +231,7 @@ class _RecipesViewState extends State<RecipesView> {
                                           onPressed: () {
                                             if (kDebugMode) {
                                               print('Pressed Bookmark');
+                                              handleSaveRecipe(recipe.id);
                                             }
                                           },
                                         ),

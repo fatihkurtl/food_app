@@ -7,7 +7,9 @@ class Constants {
   static const String popularRecipesRoute = "/popular_recipes";
   static const String recipesRoute = "/recipes";
   static const String categoriesRoute = "/categories";
+  static const String saveRecipeRoute = "/save/recipe";
   static const String recipesByCategoryRoute = "/category";
   static const String customerRegisterRoute = "/customer/register";
   static const String customerLoginRoute = "/customer/login";
+  static const String customerLogoutRoute = "/customer/logout";
 }

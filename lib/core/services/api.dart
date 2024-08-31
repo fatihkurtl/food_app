@@ -12,6 +12,7 @@ class ApiServices {
       Uri.parse(Constants.baseUrl + url),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": "${body['access_token'] ?? ''}",
       },
       body: jsonEncode(body),
     );

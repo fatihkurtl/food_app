@@ -20,7 +20,9 @@ class _ProfileViewState extends State<ProfileView> {
   void initState() {
     super.initState();
     // ApiServices.getUser("example url", "example token");
-    _checkAuth();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkAuth();
+    });
   }
 
   Future<void> _checkAuth() async {

@@ -13,6 +13,7 @@ import 'package:food_app/core/models/theme_models.dart';
 import 'package:food_app/core/theme/theme_provider.dart';
 import 'package:food_app/core/localization/lang_provider.dart';
 import 'package:food_app/core/middlewares/check_auth.dart';
+import 'package:food_app/core/helpers/customers_auth.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -51,12 +52,34 @@ class _CustomDrawerState extends State<CustomDrawer> {
   }
 
   Future<void> _authData() async {
-    final data = await CheckCustomerAuth.checkAuth();
+    final data = await CheckCustomerAuth.checkCustomer();
 
     if (data['isLoggedIn'] == true) {
       setState(() {
         isLoggedIn.value = true;
       });
+    }
+  }
+
+  void _handleLogout() async {
+    bool confirmLogout = await Get.dialog(
+      AlertDialog(
+        title: Text("log_out".tr),
+        content: Text("are_you_sure_you_want_to_log_out".tr),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(result: false),
+            child: Text("no".tr),
+          ),
+          TextButton(
+            onPressed: () => Get.back(result: true),
+            child: Text("yes".tr),
+          ),
+        ],
+      ),
+    );
+    if (confirmLogout == true) {
+      await CustomerAuthHelper.customerLogout();
     }
   }
 
@@ -402,6 +425,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   Icons.arrow_forward_ios,
                   color: Theme.of(context).colorScheme.primary,
                 ),
+                onTap: () {
+                  _handleLogout();
+                },
               ),
             // ExpansionTile(
             //   title: Text(

@@ -30,6 +30,9 @@ class Languages extends Translations {
           // recipes cards
           "save": "Kaydet",
           "share": "Paylaş",
+          // recipes save snackbar
+          "you_must_be_logged_in_to_save_recipes": "Tarifleri kaydetmek için giriş yapın.",
+          "recipe_saved_successfully": "Tarif kaydedildi.",
           // recipes search bar
           "search_recipes": "Tariflerde ara...",
           // recipes categories
@@ -65,6 +68,16 @@ class Languages extends Translations {
           "error": "Hata",
           "please_fill_in_the_required_fields": "Lütfen gerekli alanları doldurunuz",
           "passwords_do_not_match": "Şifreler eşleşmiyor",
+          // logOut Dialog
+          "log_out": "Cıkış Yap",
+          "are_you_sure_you_want_to_log_out": "Çıkış yapmak istediğinize emin misiniz?",
+          "no": "Hayır",
+          "yes": "Evet",
+          // profile tab warning snackbar
+          "informing": "Bilgilendirme",
+          "please_sign_in_to_view_your_profile": "Profil sayfasına erişebilmek için giriş yapmanız gerekmektedir.",
+          // snackbars
+          "success": "Başarılı",
         },
         "en_US": {
           // appbar
@@ -88,6 +101,9 @@ class Languages extends Translations {
           // recipes cards
           "save": "Save",
           "share": "Share",
+          // recipes save snackbar
+          "you_must_be_logged_in_to_save_recipes": "You must be logged in to save recipes.",
+          "recipe_saved_successfully": "Recipe saved successfully.",
           // recipes search bar
           "search_recipes": "Search in recipes...",
           // recipes categories
@@ -123,6 +139,16 @@ class Languages extends Translations {
           "error": "Error",
           "please_fill_in_the_required_fields": "Please fill in the required fields",
           "passwords_do_not_match": "Passwords do not match",
+          // logOut Dialog
+          "log_out": "Log Out",
+          "are_you_sure_you_want_to_log_out": "Are you sure you want to log out?",
+          "no": "No",
+          "yes": "Yes",
+          // profile tab warning snackbar
+          "informing": "Informing",
+          "please_sign_in_to_view_your_profile": "Please sign in to view your profile.",
+          // snackbars
+          "success": "Success",
         },
       };
 }

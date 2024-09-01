@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:food_app/core/models/customer_model.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,9 +43,9 @@ class CustomerAuthHelper {
     final response = await ApiServices.post(Constants.customerLoginRoute, body);
     try {
       if (response['statusCode'] == 200) {
+        await _saveLoginData(response['body']);
         SnackBars.successSnackBar(message: response['body']['message']);
         Navigator.pushNamed(context, Routes.home);
-        await _saveLoginData(response['body']);
         return {
           "statusCode": response['statusCode'],
           "body": response['body'],
@@ -74,7 +77,7 @@ class CustomerAuthHelper {
   }
 
   static Future<void> customerLogout() async {
-    final response = await ApiServices.post(Constants.customerLogoutRoute, {"customerId": await SharedPreferences.getInstance().then((value) => value.getInt('customerId'))});
+    final response = await ApiServices.post(Constants.customerLogoutRoute, {"Authorization": await SharedPreferences.getInstance().then((value) => value.getString('access_token'))});
 
     if (response['statusCode'] == 200) {
       SnackBars.successSnackBar(message: response['body']['message']);
@@ -84,6 +87,27 @@ class CustomerAuthHelper {
       Get.offAllNamed(Routes.home);
     } else {
       SnackBars.errorSnackBar(message: response['body']['message']);
+    }
+  }
+
+  static Future<Map<String, dynamic>> getCustomerProfile(String token, int id) async {
+    final response = await ApiServices.getCustomer(id.toString(), token);
+
+    if (response['statusCode'] == 200) {
+      print('response: ${response['body']}');
+      Map<String, dynamic> jsonResponse = jsonDecode(response['body']);
+      Customer customer = Customer.fromJson(jsonResponse);
+      return {
+        "statusCode": response['statusCode'],
+        "body": customer,
+      };
+    } else {
+      SnackBars.errorSnackBar(message: response['body']);
+
+      return {
+        "statusCode": response['statusCode'],
+        "body": response['body'],
+      };
     }
   }
 }

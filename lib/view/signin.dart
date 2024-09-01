@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/core/components/snackbars.dart';
-import 'package:food_app/core/helpers/customers_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:food_app/core/components/snackbars.dart';
+import 'package:food_app/core/helpers/customers_auth.dart';
+import 'package:food_app/core/navigation/routes.dart';
 // import 'package:food_app/core/components/appbar.dart';
 // import 'package:food_app/core/components/drawer.dart';
 import 'package:food_app/view/signup.dart';
@@ -170,6 +171,26 @@ class _SignInState extends State<SignInView> {
                     ),
                   ],
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 25),
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          Get.offAllNamed(Routes.home) as Route<Object?>,
+                        );
+                      },
+                      child: const Text(
+                        "Giriş Yapmadan Devam Et",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),

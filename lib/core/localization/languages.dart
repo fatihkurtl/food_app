@@ -69,7 +69,7 @@ class Languages extends Translations {
           "please_fill_in_the_required_fields": "Lütfen gerekli alanları doldurunuz",
           "passwords_do_not_match": "Şifreler eşleşmiyor",
           // logOut Dialog
-          "log_out": "Cıkış Yap",
+          "log_out": "Çıkış Yap",
           "are_you_sure_you_want_to_log_out": "Çıkış yapmak istediğinize emin misiniz?",
           "no": "Hayır",
           "yes": "Evet",
@@ -78,6 +78,9 @@ class Languages extends Translations {
           "please_sign_in_to_view_your_profile": "Profil sayfasına erişebilmek için giriş yapmanız gerekmektedir.",
           // snackbars
           "success": "Başarılı",
+          // profile remove recipe snackbar
+          "recipe_removed_successfully": "Tarif favorilerden kaldırıldı.",
+          "you_must_be_logged_in_to_remove_recipes": "Tarifi favorilerden kaldırmak için giriş yapmanız gerekmektedir.",
         },
         "en_US": {
           // appbar
@@ -149,6 +152,9 @@ class Languages extends Translations {
           "please_sign_in_to_view_your_profile": "Please sign in to view your profile.",
           // snackbars
           "success": "Success",
+          // profile remove recipe snackbar
+          "recipe_removed_successfully": "Recipe removed successfully.",
+          "you_must_be_logged_in_to_remove_recipes": "You must be logged in to remove recipes.",
         },
       };
 }

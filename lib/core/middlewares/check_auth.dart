@@ -11,7 +11,7 @@ class CheckCustomerAuth {
 
     if (token == null || customerId == null || isLoggedIn == null) {
       // SnackBars.warningSnackBar(message: 'Profil sayfasına erişebilmek için giriş yapmanız gerekmektedir.');
-      Get.toNamed(Routes.signIn);
+      Get.toNamed(Routes.home);
     }
 
     print('token: $token');

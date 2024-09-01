@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/core/helpers/get_customer.dart';
 import 'package:food_app/core/localization/languages.dart';
 import 'package:food_app/core/navigation/app_views.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
+  Get.put(CustomerController());
   runApp(
     ChangeNotifierProvider(
       create: (context) => ThemeProvider(),

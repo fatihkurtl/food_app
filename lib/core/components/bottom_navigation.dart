@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/core/components/snackbars.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:food_app/core/components/snackbars.dart';
 import 'package:food_app/core/components/appbar.dart';
 import 'package:food_app/core/components/drawer.dart';
-import 'package:food_app/core/middlewares/check_auth.dart';
 import 'package:food_app/core/models/route_models.dart';
 import 'package:food_app/view/home.dart';
 import 'package:food_app/view/recipes.dart';
@@ -21,7 +21,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
   @override
   void initState() {
     super.initState();
-    _authData();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _authData());
   }
 
   final List<Widget> _children = [
@@ -30,18 +30,25 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
     const ProfileView(),
     // SignUpView(),
   ];
-  var isLoggedIn = false.obs;
+  var customerLogin = false.obs;
 
   void onTabTapped(int index) {
     RootIndex.navigationIndex.value = index;
   }
 
   Future<void> _authData() async {
-    final data = await CheckCustomerAuth.checkCustomer();
+    final prefs = await SharedPreferences.getInstance();
 
-    if (data['isLoggedIn'] == true) {
+    String? token = prefs.getString('access_token');
+    int? customerId = prefs.getInt('customerId');
+    bool? isLoggedIn = prefs.getBool('isLoggedIn');
+    print('bottom navigation');
+    print('token: $token');
+    print('customerId: $customerId');
+    print('isLoggedIn: $isLoggedIn');
+    if (token != null || customerId != null || isLoggedIn != null) {
       setState(() {
-        isLoggedIn.value = true;
+        customerLogin.value = isLoggedIn ?? false;
       });
     }
   }
@@ -67,7 +74,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
         ),
         bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {
-            if (index == 2 && !isLoggedIn.value) {
+            if (index == 2 && !customerLogin.value) {
               SnackBars.infoSnackBar(message: 'please_sign_in_to_view_your_profile'.tr);
             } else {
               setState(() {
@@ -90,7 +97,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
             NavigationDestination(
               icon: Icon(
                 Icons.account_circle,
-                color: isLoggedIn.value ? Theme.of(context).colorScheme.primary : Colors.grey,
+                color: customerLogin.value ? Theme.of(context).colorScheme.primary : Colors.grey,
               ),
               label: "profile".tr,
             ),

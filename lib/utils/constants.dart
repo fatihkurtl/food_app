@@ -12,4 +12,6 @@ class Constants {
   static const String customerRegisterRoute = "/customer/register";
   static const String customerLoginRoute = "/customer/login";
   static const String customerLogoutRoute = "/customer/logout";
+  static const String customerProfileRoute = "/customer";
+  static const String removeFavoriteRecipeRoute = "/customer/remove-favorite-recipe";
 }

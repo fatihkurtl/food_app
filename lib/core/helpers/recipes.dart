@@ -83,11 +83,11 @@ class RecipesHelper {
     var customerId = prefs.getInt('customerId');
     var isLoggedIn = prefs.getBool('isLoggedIn');
     print('token: $token');
-    if (isLoggedIn == null || token == null || customerId == null) {
+    if (isLoggedIn != true) {
       SnackBars.infoSnackBar(message: 'you_must_be_logged_in_to_save_recipes');
     } else {
       if (customerId == data['customerId'] && token == data['token']) {
-        final response = await ApiServices.post(Constants.saveRecipeRoute, {'recipeId': recipeId, 'customerId': customerId});
+        final response = await ApiServices.post(Constants.saveRecipeRoute, {'recipeId': recipeId, 'customerId': customerId, 'access_token': token});
         if (response['statusCode'] == 200) {
           SnackBars.successSnackBar(message: 'recipe_saved_successfully');
         } else {

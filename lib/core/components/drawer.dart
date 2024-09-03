@@ -14,6 +14,7 @@ import 'package:food_app/core/theme/theme_provider.dart';
 import 'package:food_app/core/localization/lang_provider.dart';
 import 'package:food_app/core/middlewares/check_auth.dart';
 import 'package:food_app/core/helpers/customers_auth.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -92,12 +93,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
           children: [
             DrawerHeader(
               child: Center(
-                child: Text(
-                  "L O G O",
-                  style: TextStyle(
-                    fontSize: 35,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+                child: SvgPicture.asset(
+                  "lib/assets/icons/logo.svg",
+                  width: 100,
+                  height: 100,
                 ),
               ),
             ),

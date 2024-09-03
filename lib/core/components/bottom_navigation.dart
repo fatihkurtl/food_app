@@ -65,6 +65,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
+        extendBodyBehindAppBar: false,
         backgroundColor: Theme.of(context).colorScheme.background,
         key: _scaffoldKey,
         appBar: const CustomAppBar(),

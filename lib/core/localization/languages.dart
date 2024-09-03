@@ -49,6 +49,7 @@ class Languages extends Translations {
           // profiles
           "saved_recipes": "Kayıtlı Tarifler",
           "edit_profile": "Profili Düzenle",
+          "you_have_no_saved_recipes": "Kayıtlı tarifiniz bulunmuyor.",
           // edit profile
           "name": "Ad Soyad",
           "email": "E-posta",
@@ -123,6 +124,7 @@ class Languages extends Translations {
           // profiles
           "saved_recipes": "Saved Recipes",
           "edit_profile": "Edit Profile",
+          "you_have_no_saved_recipes": "You have no saved recipes.",
           // edit profile
           "name": "Full Name",
           "email": "E-mail",

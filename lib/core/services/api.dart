@@ -54,8 +54,6 @@ class ApiServices {
       },
       body: jsonEncode(body),
     );
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
     if (response.statusCode == 200) {
       return {
         "statusCode": response.statusCode,
@@ -78,8 +76,6 @@ class ApiServices {
         "Authorization": token,
       },
     );
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
     if (response.statusCode == 200) {
       return {
         "statusCode": response.statusCode,

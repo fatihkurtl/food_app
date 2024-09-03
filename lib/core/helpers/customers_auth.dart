@@ -94,7 +94,6 @@ class CustomerAuthHelper {
     final response = await ApiServices.getCustomer(id.toString(), token);
 
     if (response['statusCode'] == 200) {
-      print('response: ${response['body']}');
       Map<String, dynamic> jsonResponse = jsonDecode(response['body']);
       Customer customer = Customer.fromJson(jsonResponse);
       return {

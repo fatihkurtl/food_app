@@ -75,14 +75,12 @@ class RecipesHelper {
   }
 
   static void saveRecipe(int recipeId) async {
-    print('Recipe ID: $recipeId');
     final data = await CheckCustomerAuth.checkCustomer();
     final prefs = await SharedPreferences.getInstance();
 
     var token = prefs.getString('access_token');
     var customerId = prefs.getInt('customerId');
     var isLoggedIn = prefs.getBool('isLoggedIn');
-    print('token: $token');
     if (isLoggedIn != true) {
       SnackBars.infoSnackBar(message: 'you_must_be_logged_in_to_save_recipes');
     } else {

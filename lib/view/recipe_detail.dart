@@ -8,15 +8,19 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 class RecipeDetailView extends StatefulWidget {
   final int recipeId;
   final String foodName;
+  final String? foodNameEn;
   final String imageUrl;
   final String recipeContent;
+  final String? recipeContentEn;
 
   const RecipeDetailView({
     super.key,
     required this.recipeId,
     required this.imageUrl,
     required this.foodName,
+    this.foodNameEn,
     required this.recipeContent,
+    this.recipeContentEn,
   });
 
   @override
@@ -70,11 +74,10 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
             ),
             body: Markdown(
               data: """
-   ![Image](${widget.imageUrl})
-   # ${widget.foodName}
-
-   ${widget.recipeContent}
-  """,
+![Image](${widget.imageUrl})
+# ${Get.locale?.languageCode == "tr" ? widget.foodName : widget.foodNameEn ?? widget.foodName}
+${Get.locale?.languageCode == "tr" ? widget.recipeContent : widget.recipeContentEn ?? widget.recipeContent}
+            """,
               styleSheet: MarkdownStyleSheet(
                 h1: const TextStyle(fontSize: 24),
                 h2: const TextStyle(fontSize: 20),

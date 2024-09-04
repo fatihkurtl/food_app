@@ -6,15 +6,19 @@ import 'package:google_fonts/google_fonts.dart';
 class BuildCard extends StatefulWidget {
   final int recipeId;
   final String foodName;
+  final String foodNameEn;
   final String imageUrl;
   final String recipeContent;
+  final String recipeContentEn;
 
   const BuildCard({
     super.key,
     required this.recipeId,
     required this.foodName,
+    required this.foodNameEn,
     required this.imageUrl,
     required this.recipeContent,
+    required this.recipeContentEn,
   });
 
   @override
@@ -35,8 +39,10 @@ class _BuildCardState extends State<BuildCard> {
             builder: (context) => RecipeDetailView(
               recipeId: widget.recipeId,
               foodName: widget.foodName,
+              foodNameEn: widget.foodNameEn,
               imageUrl: "http://10.0.2.2:8000/storage/${widget.imageUrl}",
               recipeContent: widget.recipeContent,
+              recipeContentEn: widget.recipeContentEn,
             ),
           ),
         );

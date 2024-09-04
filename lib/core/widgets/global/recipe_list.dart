@@ -51,8 +51,10 @@ class RecipeList extends StatelessWidget {
                   builder: (context) => RecipeDetailView(
                     recipeId: recipe.id,
                     foodName: recipe.name,
+                    foodNameEn: recipe.nameEn,
                     imageUrl: "http://10.0.2.2:8000/storage/${recipe.image}",
                     recipeContent: recipe.content,
+                    recipeContentEn: recipe.contentEn,
                   ),
                 ),
               );
@@ -126,7 +128,7 @@ class RecipeList extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: Text(
-                              recipe.name,
+                              Get.locale?.languageCode == "tr" ? recipe.name : recipe.nameEn,
                               style: GoogleFonts.roboto(
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).colorScheme.primary,

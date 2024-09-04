@@ -39,8 +39,10 @@ abstract class AppViews {
       page: () => const RecipeDetailView(
         recipeId: 0,
         foodName: "",
+        foodNameEn: "",
         imageUrl: "",
-        recipeContent: "aaa",
+        recipeContent: "",
+        recipeContentEn: "",
       ),
     ),
   ];

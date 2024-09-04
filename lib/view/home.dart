@@ -104,8 +104,10 @@ class _HomeViewState extends State<HomeView> {
                           child: BuildCard(
                             recipeId: recipe.id,
                             foodName: recipe.name,
+                            foodNameEn: recipe.nameEn,
                             imageUrl: recipe.image,
                             recipeContent: recipe.content,
+                            recipeContentEn: recipe.contentEn,
                           ),
                         );
                       }).toList(),
@@ -171,8 +173,10 @@ class _HomeViewState extends State<HomeView> {
                                   builder: (context) => RecipeDetailView(
                                     recipeId: recipe.id,
                                     foodName: recipe.name,
+                                    foodNameEn: recipe.nameEn,
                                     imageUrl: "http://10.0.2.2:8000/storage/${recipe.image}",
                                     recipeContent: recipe.content,
+                                    recipeContentEn: recipe.contentEn,
                                   ),
                                 ),
                               );

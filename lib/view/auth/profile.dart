@@ -147,8 +147,10 @@ class _ProfileViewState extends State<ProfileView> {
                                   builder: (context) => RecipeDetailView(
                                     recipeId: recipe.id,
                                     foodName: recipe.name,
+                                    foodNameEn: recipe.nameEn,
                                     imageUrl: "http://10.0.2.2:8000/storage/${recipe.image}",
                                     recipeContent: recipe.content,
+                                    recipeContentEn: recipe.contentEn,
                                   ),
                                 ),
                               );

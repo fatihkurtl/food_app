@@ -1,8 +1,10 @@
 class Recipe {
   final int id;
   final String name;
+  final String nameEn;
   final String image;
   final String content;
+  final String contentEn;
   final int likesCount;
   final int recordCount;
   final int categoryId;
@@ -12,8 +14,10 @@ class Recipe {
   Recipe({
     required this.id,
     required this.name,
+    required this.nameEn,
     required this.image,
     required this.content,
+    required this.contentEn,
     required this.likesCount,
     required this.recordCount,
     required this.categoryId,
@@ -25,8 +29,10 @@ class Recipe {
     return Recipe(
       id: json['id'],
       name: json['name'],
+      nameEn: json['name_en'],
       image: json['image'],
       content: json['content'],
+      contentEn: json['content_en'],
       likesCount: json['likes_count'],
       recordCount: json['record_count'],
       categoryId: json['category_id'],
@@ -39,8 +45,10 @@ class Recipe {
     return {
       'id': id,
       'name': name,
+      'name_en': nameEn,
       'image': image,
       'content': content,
+      'content_en': contentEn,
       'likes_count': likesCount,
       'record_count': recordCount,
       'category_id': categoryId,

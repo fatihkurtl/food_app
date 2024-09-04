@@ -177,6 +177,7 @@ class _RecipesViewState extends State<RecipesView> {
                             categoryId: category.id,
                             selectedCategoryId: selectedCategoryId.value,
                             text: category.name,
+                            textEn: category.nameEn,
                             onSelect: onCategorySelected,
                           ),
                         )

@@ -46,8 +46,10 @@ class Customer {
 class FavoriteRecipe {
   final int id;
   final String name;
+  final String nameEn;
   final String image;
   final String content;
+  final String contentEn;
   final int likesCount;
   final int recordCount;
   final int categoryId;
@@ -57,8 +59,10 @@ class FavoriteRecipe {
   FavoriteRecipe({
     required this.id,
     required this.name,
+    required this.nameEn,
     required this.image,
     required this.content,
+    required this.contentEn,
     required this.likesCount,
     required this.recordCount,
     required this.categoryId,
@@ -70,8 +74,10 @@ class FavoriteRecipe {
     return FavoriteRecipe(
       id: json['id'] ?? 0,
       name: json['name'] ?? '',
+      nameEn: json['name_en'] ?? '',
       image: json['image'] ?? '',
       content: json['content'] ?? '',
+      contentEn: json['content_en'] ?? '',
       likesCount: json['likes_count'] ?? 0,
       recordCount: json['record_count'] ?? 0,
       categoryId: json['category_id'] ?? 0,
@@ -83,8 +89,10 @@ class FavoriteRecipe {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
+        'name_en': nameEn,
         'image': image,
         'content': content,
+        'content_en': contentEn,
         'likes_count': likesCount,
         'record_count': recordCount,
         'category_id': categoryId,
@@ -94,6 +102,6 @@ class FavoriteRecipe {
 
   @override
   String toString() {
-    return 'FavoriteRecipe{id: $id, name: $name, image: $image, content: $content, likesCount: $likesCount, recordCount: $recordCount, categoryId: $categoryId, createdAt: $createdAt, updatedAt: $updatedAt}';
+    return 'FavoriteRecipe{id: $id, name: $name, nameEn: $nameEn, image: $image, content: $content, contentEn: $contentEn, likesCount: $likesCount, recordCount: $recordCount, categoryId: $categoryId, createdAt: $createdAt, updatedAt: $updatedAt}';
   }
 }

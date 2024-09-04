@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:flutter/foundation.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:food_app/core/widgets/profile/no_recipes.dart';
 import 'package:food_app/core/components/loading.dart';
 import 'package:food_app/core/components/snackbars.dart';
 import 'package:food_app/core/helpers/customers_auth.dart';
 import 'package:food_app/core/models/customer_model.dart';
 import 'package:food_app/core/services/api.dart';
 import 'package:food_app/utils/constants.dart';
-import 'package:get/get.dart';
-import 'package:flutter/foundation.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:food_app/view/auth/edit_profile.dart';
 import 'package:food_app/view/recipe_detail.dart';
 import 'package:food_app/core/helpers/recipes.dart';
 import 'package:food_app/core/middlewares/check_auth.dart';
-// import 'package:food_app/core/services/api.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -37,9 +37,10 @@ class _ProfileViewState extends State<ProfileView> {
     final data = await CheckCustomerAuth.checkCustomer();
     final profileData = await CustomerAuthHelper.getCustomerProfile(data['token'], data['customerId']);
 
-    setState(() {
+    if (mounted) {
       customerData.value = profileData['body'] as Customer;
-    });
+    }
+    setState(() {});
   }
 
   void removeRecipe(int id) async {
@@ -255,18 +256,7 @@ class _ProfileViewState extends State<ProfileView> {
                           );
                         },
                       ),
-                    if (customerData.value?.favoriteRecipes == null || customerData.value?.favoriteRecipes!.isEmpty == true)
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          "you_have_no_saved_recipes".tr,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                        ),
-                      ),
+                    if (customerData.value?.favoriteRecipes == null || customerData.value?.favoriteRecipes!.isEmpty == true) const NoRecipes()
                   ],
                 ),
               ),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/core/components/loading.dart';
+import 'package:food_app/core/state/app_data.dart';
 import 'package:get/get.dart';
-import 'package:food_app/core/models/carousel_models.dart';
-import 'package:food_app/core/models/recipes_models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:food_app/core/models/route_models.dart';
@@ -11,6 +10,7 @@ import 'package:food_app/view/recipe_detail.dart';
 import 'package:food_app/core/helpers/recipes.dart';
 
 import 'package:food_app/core/widgets/home/carousel_slider.dart';
+import 'package:food_app/core/state/recipes_data.dart';
 // import 'package:food_app/core/components/appbar.dart';
 // import 'package:food_app/core/components/drawer.dart';
 // import 'package:food_app/view/recipes.dart';
@@ -23,9 +23,11 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  var carousels = <Carousel>[].obs;
-  var popularRecipes = <Recipe>[].obs;
-  var recipes = <Recipe>[].obs;
+  // var carousels = <Carousel>[].obs;
+  // var popularRecipes = <Recipe>[].obs;
+  // var recipes = <Recipe>[].obs;
+  var recipeData = RecipeState();
+  var carouselList = AppState();
 
   @override
   void initState() {
@@ -37,28 +39,25 @@ class _HomeViewState extends State<HomeView> {
 
   Future<void> fetchCarousels() async {
     await RecipesHelper.getAllCarousels();
-    setState(() {
-      carousels.value = RecipesHelper.carousels;
-    });
+    carouselList.carousels.value = RecipesHelper.carousels;
+    setState(() {});
   }
 
   Future<void> fetchPopularRecipes() async {
     await RecipesHelper.getPopularRecipes();
-    setState(() {
-      popularRecipes.value = RecipesHelper.popularRecipes;
-    });
+    recipeData.popularRecipes.value = RecipesHelper.popularRecipes;
+    setState(() {});
   }
 
   Future<void> fetchRecipes() async {
     await RecipesHelper.getAllRecipes();
-    setState(() {
-      recipes.value = RecipesHelper.recipes.take(4).toList();
-    });
+    recipeData.recipes.value = RecipesHelper.recipes.take(4).toList();
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return recipes.isEmpty && carousels.isEmpty && popularRecipes.isEmpty
+    return recipeData.recipes.isEmpty && carouselList.carousels.isEmpty && recipeData.popularRecipes.isEmpty
         ? Center(
             child: CustomLoading(
               color: Theme.of(context).colorScheme.secondary,
@@ -72,7 +71,7 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
-                    child: CarouselWidget(carousels: carousels),
+                    child: CarouselWidget(carousels: carouselList.carousels),
                   ),
                   const SizedBox(height: 10),
                   Row(
@@ -99,7 +98,7 @@ class _HomeViewState extends State<HomeView> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: popularRecipes.map((recipe) {
+                      children: recipeData.popularRecipes.map((recipe) {
                         return Padding(
                           padding: const EdgeInsets.only(right: 10.0),
                           child: BuildCard(
@@ -158,9 +157,9 @@ class _HomeViewState extends State<HomeView> {
                           crossAxisCount: 2,
                           childAspectRatio: 0.9,
                         ),
-                        itemCount: recipes.length,
+                        itemCount: recipeData.recipes.length,
                         itemBuilder: (context, index) {
-                          final recipe = recipes[index];
+                          final recipe = recipeData.recipes[index];
                           return InkWell(
                             onTap: () {
                               if (kDebugMode) {

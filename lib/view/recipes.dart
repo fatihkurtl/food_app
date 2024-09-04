@@ -49,7 +49,9 @@ class _RecipesViewState extends State<RecipesView> {
   Future<void> fetchRecipes() async {
     try {
       await RecipesHelper.getAllRecipes();
-      recipes.value = RecipesHelper.recipes;
+      if (mounted) {
+        recipes.value = RecipesHelper.recipes;
+      }
       setState(() {});
     } catch (e) {
       SnackBar(content: Text('Error fetching recipes: $e'));
@@ -60,7 +62,9 @@ class _RecipesViewState extends State<RecipesView> {
     try {
       final data = await CheckCustomerAuth.checkCustomer();
       final profileData = await CustomerAuthHelper.getCustomerProfile(data['token'], data['customerId']);
-      customerFavoriteRecipes.value = profileData['body'] as Customer;
+      if (mounted) {
+        customerFavoriteRecipes.value = profileData['body'] as Customer;
+      }
       setState(() {});
     } catch (e) {
       SnackBars.errorSnackBar(message: e.toString());
@@ -70,7 +74,9 @@ class _RecipesViewState extends State<RecipesView> {
   Future<void> fetchRecipesByCategory(int categoryId) async {
     try {
       await RecipesHelper.getRecipesByCategory(categoryId);
-      recipes.value = RecipesHelper.recipes;
+      if (mounted) {
+        recipes.value = RecipesHelper.recipes;
+      }
       setState(() {});
     } catch (e) {
       SnackBars.errorSnackBar(message: e.toString());
@@ -80,7 +86,9 @@ class _RecipesViewState extends State<RecipesView> {
   Future<void> fetchCategories() async {
     try {
       await RecipesHelper.getAllCategories();
-      categories.value = RecipesHelper.categories;
+      if (mounted) {
+        categories.value = RecipesHelper.categories;
+      }
       setState(() {});
     } catch (e) {
       SnackBars.errorSnackBar(message: e.toString());
@@ -101,7 +109,6 @@ class _RecipesViewState extends State<RecipesView> {
   void handleSaveRecipe(int recipeId) async {
     RecipesHelper.saveRecipe(recipeId);
     await fetchCustomerRecipes();
-    await fetchRecipes();
   }
 
   bool isRecipeFavorited(int? recipeId) {

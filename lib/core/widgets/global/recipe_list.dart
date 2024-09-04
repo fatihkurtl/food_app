@@ -8,7 +8,7 @@ import 'package:food_app/view/recipe_detail.dart';
 import 'package:food_app/core/helpers/recipes.dart';
 import 'package:food_app/core/models/recipes_models.dart';
 
-class RecipeList extends StatefulWidget {
+class RecipeList extends StatelessWidget {
   final List<Recipe> recipes;
   final Rx<Customer?> customerFavoriteRecipes;
   final int selectedCategoryId;
@@ -27,149 +27,144 @@ class RecipeList extends StatefulWidget {
   });
 
   @override
-  State<RecipeList> createState() => _RecipeListState();
-}
-
-class _RecipeListState extends State<RecipeList> {
-  @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 0.9,
-      ),
-      itemCount: widget.recipes.length,
-      itemBuilder: (context, index) {
-        final recipe = widget.recipes[index];
-        final isFavorite = widget.isRecipeFavorited(recipe.id);
-        return InkWell(
-          onTap: () {
-            if (kDebugMode) {
-              print('Tapped Recipe: ${recipe.name}');
-            }
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RecipeDetailView(
-                  recipeId: recipe.id,
-                  foodName: recipe.name,
-                  imageUrl: "http://10.0.2.2:8000/storage/${recipe.image}",
-                  recipeContent: recipe.content,
+    return Obx(
+      () => GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.9,
+        ),
+        itemCount: recipes.length,
+        itemBuilder: (context, index) {
+          final recipe = recipes[index];
+          final isFavorite = isRecipeFavorited(recipe.id);
+          return InkWell(
+            onTap: () {
+              if (kDebugMode) {
+                print('Tapped Recipe: ${recipe.name}');
+              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RecipeDetailView(
+                    recipeId: recipe.id,
+                    foodName: recipe.name,
+                    imageUrl: "http://10.0.2.2:8000/storage/${recipe.image}",
+                    recipeContent: recipe.content,
+                  ),
                 ),
+              );
+            },
+            child: Container(
+              margin: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                borderRadius: BorderRadius.circular(10),
               ),
-            );
-          },
-          child: Container(
-            margin: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
-                    ),
-                    child: Image.network(
-                      "http://10.0.2.2:8000/storage/${recipe.image}",
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        } else {
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                      child: Image.network(
+                        "http://10.0.2.2:8000/storage/${recipe.image}",
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          } else {
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1) : null,
+                              ),
+                            );
+                          }
+                        },
+                        errorBuilder: (context, error, stackTrace) {
                           return Center(
-                            child: CircularProgressIndicator(
-                              value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1) : null,
+                            child: CustomLoading(
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                           );
-                        }
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return Center(
-                          child: CustomLoading(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                        );
-                      },
+                        },
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(0.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: IconButton(
-                          icon: Icon(
-                            isFavorite ? Icons.bookmark : Icons.bookmark_border,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          tooltip: "save".tr,
-                          onPressed: () {
-                            final isFavorite = widget.isRecipeFavorited(recipe.id);
-                            if (isFavorite) {
-                              widget.removeRecipe(recipe.id);
-                              setState(() {});
-                            } else {
-                              widget.handleSaveRecipe(recipe.id);
-                              setState(() {});
-                            }
-                            if (kDebugMode) {
-                              print('Pressed Bookmark');
-                            }
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
+                  Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Text(
-                            recipe.name,
-                            style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.bold,
+                          child: IconButton(
+                            icon: Icon(
+                              isFavorite ? Icons.bookmark : Icons.bookmark_border,
                               color: Theme.of(context).colorScheme.primary,
-                              textStyle: const TextStyle(
-                                fontSize: 15,
-                              ),
                             ),
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
+                            tooltip: "save".tr,
+                            onPressed: () {
+                              final isFavorite = isRecipeFavorited(recipe.id);
+                              if (isFavorite) {
+                                removeRecipe(recipe.id);
+                              } else {
+                                handleSaveRecipe(recipe.id);
+                              }
+                              if (kDebugMode) {
+                                print('Pressed Bookmark');
+                              }
+                            },
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.share,
-                            color: Theme.of(context).colorScheme.primary,
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Text(
+                              recipe.name,
+                              style: GoogleFonts.roboto(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary,
+                                textStyle: const TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                            ),
                           ),
-                          tooltip: "share".tr,
-                          onPressed: () {
-                            RecipesHelper.shareRecipe("http://10.0.2.2:8000/api/app/recipes/${recipe.name}");
-                            if (kDebugMode) {
-                              print('Pressed Share');
-                            }
-                          },
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.share,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            tooltip: "share".tr,
+                            onPressed: () {
+                              RecipesHelper.shareRecipe("http://10.0.2.2:8000/api/app/recipes/${recipe.name}");
+                              if (kDebugMode) {
+                                print('Pressed Share');
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

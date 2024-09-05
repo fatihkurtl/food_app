@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:food_app/core/components/snackbars.dart';
 import 'package:food_app/core/middlewares/check_auth.dart';
 import 'package:food_app/utils/constants.dart';
@@ -101,6 +102,6 @@ class RecipesHelper {
     if (kDebugMode) {
       print('Shared Recipe: $recipeUrl');
     }
-    Share.share('Check out this recipe: $recipeUrl');
+    Share.share("Check out this recipe: ${dotenv.env['BASE_URL']}/recipes/${recipeUrl.toLowerCase().replaceAll(' ', '-')}");
   }
 }

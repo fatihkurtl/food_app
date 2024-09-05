@@ -151,7 +151,7 @@ class RecipeList extends StatelessWidget {
                             ),
                             tooltip: "share".tr,
                             onPressed: () {
-                              RecipesHelper.shareRecipe("http://10.0.2.2:8000/api/app/recipes/${recipe.name}");
+                              RecipesHelper.shareRecipe(recipe.name);
                               if (kDebugMode) {
                                 print('Pressed Share');
                               }

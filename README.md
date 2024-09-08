@@ -1,4 +1,9 @@
 # food_app
+![image](https://github.com/user-attachments/assets/c2b99eae-b9fe-48f2-acc7-4c4804107b7f)
+![image](https://github.com/user-attachments/assets/7298c5ba-4c7b-457e-8ab4-592b625296ea)
+![image](https://github.com/user-attachments/assets/3c89b6d7-468f-4f34-b706-445fa9d74099)
+![image](https://github.com/user-attachments/assets/a61ca0d8-159d-4605-a7e3-1e84ed313863)
+
 
 A new Flutter project.
 

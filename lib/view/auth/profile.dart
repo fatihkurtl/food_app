@@ -23,13 +23,13 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
   var customerData = Rx<Customer?>(null);
+  final _mounted = false.obs;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _checkAuth();
-    });
+    _mounted.value = true;
+    _checkAuth();
   }
 
   Future<void> _checkAuth() async {
@@ -37,10 +37,11 @@ class _ProfileViewState extends State<ProfileView> {
     final data = await CheckCustomerAuth.checkCustomer();
     final profileData = await CustomerAuthHelper.getCustomerProfile(data['token'], data['customerId']);
 
-    if (mounted) {
-      customerData.value = profileData['body'] as Customer;
+    if (_mounted.value) {
+      setState(() {
+        customerData.value = profileData['body'] as Customer;
+      });
     }
-    setState(() {});
   }
 
   void removeRecipe(int id) async {
@@ -134,13 +135,19 @@ class _ProfileViewState extends State<ProfileView> {
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          childAspectRatio: 0.9,
+                          childAspectRatio: 0.7,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
                         ),
                         itemCount: customerData.value!.favoriteRecipes!.length,
                         itemBuilder: (context, index) {
                           final recipe = customerData.value!.favoriteRecipes![index];
-                          return InkWell(
+                          // bool isFavorite = widget.isRecipeFavorited(recipe.id);
+                          return GestureDetector(
                             onTap: () {
+                              if (kDebugMode) {
+                                print('Tapped Recipe: ${recipe.name}');
+                              }
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -149,107 +156,131 @@ class _ProfileViewState extends State<ProfileView> {
                                     foodName: recipe.name,
                                     foodNameEn: recipe.nameEn,
                                     imageUrl: "http://10.0.2.2:8000/storage/${recipe.image}",
+                                    likesCount: recipe.likesCount,
+                                    commentCount: 0,
                                     recipeContent: recipe.content,
                                     recipeContentEn: recipe.contentEn,
                                   ),
                                 ),
                               );
                             },
-                            child: Container(
-                              margin: const EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                borderRadius: BorderRadius.circular(10),
+                            child: Card(
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
                               ),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Expanded(
-                                    child: ClipRRect(
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10),
-                                      ),
-                                      child: Image.network(
-                                        "http://10.0.2.2:8000/storage/${recipe.image}",
-                                        fit: BoxFit.cover,
-                                        loadingBuilder: (context, child, loadingProgress) {
-                                          if (loadingProgress == null) {
-                                            return child;
-                                          } else {
+                                  Stack(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                                        child: Image.network(
+                                          "http://10.0.2.2:8000/storage/${recipe.image}",
+                                          height: 120,
+                                          width: double.infinity,
+                                          fit: BoxFit.cover,
+                                          loadingBuilder: (context, child, loadingProgress) {
+                                            if (loadingProgress == null) return child;
                                             return Center(
                                               child: CircularProgressIndicator(
                                                 value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1) : null,
                                               ),
                                             );
-                                          }
-                                        },
-                                        errorBuilder: (context, error, stackTrace) {
-                                          return Center(
-                                            child: CustomLoading(
-                                              color: Theme.of(context).colorScheme.primary,
-                                            ),
-                                          );
-                                        },
+                                          },
+                                          errorBuilder: (context, error, stackTrace) {
+                                            return Center(
+                                              child: CustomLoading(
+                                                color: Theme.of(context).colorScheme.primary,
+                                              ),
+                                            );
+                                          },
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(0.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(2.0),
+                                      Positioned(
+                                        top: 5,
+                                        right: 5,
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.white.withOpacity(0.7),
                                           child: IconButton(
-                                            icon: Icon(
-                                              recipe.id == customerData.value!.favoriteRecipes![index].id ? Icons.bookmark : Icons.bookmark_outline,
-                                              color: Theme.of(context).colorScheme.primary,
+                                            icon: const Icon(
+                                              Icons.favorite,
+                                              color: Colors.red,
                                             ),
-                                            tooltip: "save".tr,
                                             onPressed: () {
-                                              removeRecipe(recipe.id);
+                                              setState(() {
+                                                removeRecipe(recipe.id);
+                                              });
+
                                               if (kDebugMode) {
                                                 print('Pressed Bookmark');
                                               }
                                             },
                                           ),
                                         ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(2.0),
-                                            child: Text(
-                                              recipe.name,
-                                              style: GoogleFonts.roboto(
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context).colorScheme.primary,
-                                                textStyle: const TextStyle(
-                                                  fontSize: 15,
-                                                ),
+                                      ),
+                                    ],
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            Get.locale?.languageCode == "tr" ? recipe.name : recipe.nameEn,
+                                            style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const Spacer(),
+                                          Row(
+                                            children: [
+                                              Icon(Icons.timer, size: 16, color: Colors.grey[600]),
+                                              const SizedBox(width: 4),
+                                              Text(
+                                                '4 min',
+                                                style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                                               ),
-                                              textAlign: TextAlign.center,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
-                                            ),
+                                            ],
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(2.0),
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.share,
-                                              color: Theme.of(context).colorScheme.primary,
-                                            ),
-                                            tooltip: "share".tr,
-                                            onPressed: () {
-                                              RecipesHelper.shareRecipe("http://10.0.2.2:8000/api/app/recipes/${recipe.name}");
-                                              if (kDebugMode) {
-                                                print('Pressed Share');
-                                              }
-                                            },
+                                          const SizedBox(height: 5),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  const Icon(
+                                                    Icons.local_fire_department,
+                                                    size: 16,
+                                                    color: Colors.orange,
+                                                  ),
+                                                  const SizedBox(width: 4),
+                                                  Text(
+                                                    '444 cal',
+                                                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                                                  ),
+                                                ],
+                                              ),
+                                              IconButton(
+                                                icon: const Icon(
+                                                  Icons.share,
+                                                  size: 20,
+                                                  color: Colors.blue,
+                                                ),
+                                                onPressed: () {
+                                                  RecipesHelper.shareRecipe(recipe.name);
+                                                },
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],

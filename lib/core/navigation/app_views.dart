@@ -41,6 +41,8 @@ abstract class AppViews {
         foodName: "",
         foodNameEn: "",
         imageUrl: "",
+        likesCount: 0,
+        commentCount: 0,
         recipeContent: "",
         recipeContentEn: "",
       ),

@@ -39,20 +39,26 @@ class _HomeViewState extends State<HomeView> {
 
   Future<void> fetchCarousels() async {
     await RecipesHelper.getAllCarousels();
-    carouselList.carousels.value = RecipesHelper.carousels;
-    setState(() {});
+    if (mounted) {
+      carouselList.carousels.value = RecipesHelper.carousels;
+      setState(() {});
+    }
   }
 
   Future<void> fetchPopularRecipes() async {
     await RecipesHelper.getPopularRecipes();
-    recipeData.popularRecipes.value = RecipesHelper.popularRecipes;
-    setState(() {});
+    if (mounted) {
+      recipeData.popularRecipes.value = RecipesHelper.popularRecipes;
+      setState(() {});
+    }
   }
 
   Future<void> fetchRecipes() async {
     await RecipesHelper.getAllRecipes();
-    recipeData.recipes.value = RecipesHelper.recipes.take(4).toList();
-    setState(() {});
+    if (mounted) {
+      recipeData.recipes.value = RecipesHelper.recipes.take(4).toList();
+      setState(() {});
+    }
   }
 
   @override
@@ -175,6 +181,8 @@ class _HomeViewState extends State<HomeView> {
                                     foodName: recipe.name,
                                     foodNameEn: recipe.nameEn,
                                     imageUrl: "http://10.0.2.2:8000/storage/${recipe.image}",
+                                    likesCount: recipe.likesCount,
+                                    commentCount: 6,
                                     recipeContent: recipe.content,
                                     recipeContentEn: recipe.contentEn,
                                   ),

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CategoryButton extends StatefulWidget {
+class CategoryButton extends StatelessWidget {
   final int categoryId;
   final int selectedCategoryId;
   final String text;
@@ -11,48 +11,45 @@ class CategoryButton extends StatefulWidget {
   final void Function(int) onSelect;
 
   const CategoryButton({
-    super.key,
+    Key? key,
     required this.categoryId,
     required this.selectedCategoryId,
     required this.text,
     required this.textEn,
     required this.onSelect,
-  });
-
-  @override
-  _CategoryButtonState createState() => _CategoryButtonState();
-}
-
-class _CategoryButtonState extends State<CategoryButton> {
-  int previouslySelectedId = 0;
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        widget.onSelect(widget.categoryId);
-        previouslySelectedId = widget.categoryId;
+    final isSelected = categoryId == selectedCategoryId;
+    return GestureDetector(
+      onTap: () {
+        onSelect(categoryId);
         if (kDebugMode) {
-          print("Selected Category: ${widget.text}");
+          print("Selected Category: $text");
           print(Get.locale);
         }
       },
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(
-          widget.categoryId == widget.selectedCategoryId ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.secondary,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.secondary,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  )
+                ]
+              : [],
         ),
-      ),
-      child: Text(
-        Get.locale?.languageCode == "tr" ? widget.text : widget.textEn ?? widget.text,
-        style: GoogleFonts.roboto(
-          fontWeight: FontWeight.normal,
-          color: Theme.of(context).colorScheme.primary,
-          textStyle: const TextStyle(
+        child: Text(
+          Get.locale?.languageCode == "tr" ? text : textEn ?? text,
+          style: GoogleFonts.roboto(
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            color: isSelected ? Theme.of(context).colorScheme.onPrimary : Theme.of(context).colorScheme.primary,
             fontSize: 13,
           ),
         ),

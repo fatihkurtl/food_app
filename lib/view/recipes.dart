@@ -6,17 +6,12 @@ import 'package:food_app/core/helpers/customers_auth.dart';
 import 'package:food_app/core/middlewares/check_auth.dart';
 import 'package:food_app/core/models/customer_model.dart';
 import 'package:food_app/core/widgets/global/recipe_list.dart';
-
 import 'package:food_app/core/components/snackbars.dart';
 import 'package:food_app/core/models/categories_models.dart';
 import 'package:food_app/core/widgets/recipes/category_button.dart';
 import 'package:food_app/core/components/loading.dart';
 import 'package:food_app/core/helpers/recipes.dart';
 import 'package:food_app/core/models/recipes_models.dart';
-
-// import 'package:food_app/core/components/appbar.dart';
-// import 'package:food_app/core/components/bottom-navigation.dart';
-// import 'package:food_app/core/components/drawer.dart';
 
 class RecipesView extends StatefulWidget {
   const RecipesView({super.key});
@@ -26,35 +21,35 @@ class RecipesView extends StatefulWidget {
 }
 
 class _RecipesViewState extends State<RecipesView> {
-  var recipes = <Recipe>[].obs;
-  var customerFavoriteRecipes = Rx<Customer?>(null);
-  var categories = <Categories>[].obs;
-  var selectedCategoryId = 0.obs;
-  var previouslySelectedCategoryId = 0.obs;
-  var isLoggedIn = false.obs;
+  final recipes = <Recipe>[].obs;
+  final customerFavoriteRecipes = Rx<Customer?>(null);
+  final categories = <Categories>[].obs;
+  final selectedCategoryId = 0.obs;
+  final previouslySelectedCategoryId = 0.obs;
+  final isLoggedIn = false.obs;
 
   @override
   void initState() {
     super.initState();
+    _initializeData();
+  }
+
+  Future<void> _initializeData() async {
     if (selectedCategoryId.value == 0) {
-      fetchRecipes();
-      fetchCustomerRecipes();
+      await fetchRecipes();
     } else {
-      fetchRecipesByCategory(selectedCategoryId.value);
-      fetchCustomerRecipes();
+      await fetchRecipesByCategory(selectedCategoryId.value);
     }
-    fetchCategories();
+    await fetchCustomerRecipes();
+    await fetchCategories();
   }
 
   Future<void> fetchRecipes() async {
     try {
       await RecipesHelper.getAllRecipes();
-      if (mounted) {
-        recipes.value = RecipesHelper.recipes;
-      }
-      setState(() {});
+      recipes.value = RecipesHelper.recipes;
     } catch (e) {
-      SnackBar(content: Text('Error fetching recipes: $e'));
+      SnackBars.errorSnackBar(message: 'Error fetching recipes: $e');
     }
   }
 
@@ -62,10 +57,7 @@ class _RecipesViewState extends State<RecipesView> {
     try {
       final data = await CheckCustomerAuth.checkCustomer();
       final profileData = await CustomerAuthHelper.getCustomerProfile(data['token'], data['customerId']);
-      if (mounted) {
-        customerFavoriteRecipes.value = profileData['body'] as Customer;
-      }
-      setState(() {});
+      customerFavoriteRecipes.value = profileData['body'] as Customer;
     } catch (e) {
       SnackBars.errorSnackBar(message: e.toString());
     }
@@ -74,10 +66,7 @@ class _RecipesViewState extends State<RecipesView> {
   Future<void> fetchRecipesByCategory(int categoryId) async {
     try {
       await RecipesHelper.getRecipesByCategory(categoryId);
-      if (mounted) {
-        recipes.value = RecipesHelper.recipes;
-      }
-      setState(() {});
+      recipes.value = RecipesHelper.recipes;
     } catch (e) {
       SnackBars.errorSnackBar(message: e.toString());
     }
@@ -86,10 +75,7 @@ class _RecipesViewState extends State<RecipesView> {
   Future<void> fetchCategories() async {
     try {
       await RecipesHelper.getAllCategories();
-      if (mounted) {
-        categories.value = RecipesHelper.categories;
-      }
-      setState(() {});
+      categories.value = RecipesHelper.categories;
     } catch (e) {
       SnackBars.errorSnackBar(message: e.toString());
     }
@@ -122,6 +108,7 @@ class _RecipesViewState extends State<RecipesView> {
 
     if (response['statusCode'] == 200) {
       SnackBars.successSnackBar(message: 'recipe_removed_successfully');
+      await fetchCustomerRecipes();
     } else {
       SnackBars.infoSnackBar(message: 'you_must_be_logged_in_to_remove_recipes');
     }
@@ -129,78 +116,77 @@ class _RecipesViewState extends State<RecipesView> {
 
   @override
   Widget build(BuildContext context) {
-    return recipes.isEmpty && categories.isEmpty
-        ? Center(
-            child: CustomLoading(
-              color: Theme.of(context).colorScheme.secondary,
+    return Obx(() {
+      if (recipes.isEmpty && categories.isEmpty) {
+        return Center(
+          child: CustomLoading(
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+        );
+      }
+
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "search_recipes".tr,
+                  hintStyle: TextStyle(
+                    color: Colors.grey[600],
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              ),
             ),
-          )
-        : Obx(
-            () => Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                      borderRadius: BorderRadius.circular(12),
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Wrap(
+              spacing: 10.0,
+              children: categories
+                  .map(
+                    (category) => CategoryButton(
+                      categoryId: category.id,
+                      selectedCategoryId: selectedCategoryId.value,
+                      text: category.name,
+                      textEn: category.nameEn,
+                      onSelect: onCategorySelected,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 0.0),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "search_recipes".tr,
-                          hintStyle: TextStyle(
-                            color: Colors.grey[600],
-                          ),
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Wrap(
-                    spacing: 10.0,
-                    children: categories
-                        .map(
-                          (category) => CategoryButton(
-                            categoryId: category.id,
-                            selectedCategoryId: selectedCategoryId.value,
-                            text: category.name,
-                            textEn: category.nameEn,
-                            onSelect: onCategorySelected,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: RecipeList(
-                        recipes: recipes,
-                        customerFavoriteRecipes: customerFavoriteRecipes,
-                        selectedCategoryId: selectedCategoryId.value,
-                        handleSaveRecipe: handleSaveRecipe,
-                        isRecipeFavorited: isRecipeFavorited,
-                        removeRecipe: removeRecipe,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+                  )
+                  .toList(),
             ),
-          );
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: RecipeList(
+                  recipes: recipes,
+                  customerFavoriteRecipes: customerFavoriteRecipes,
+                  selectedCategoryId: selectedCategoryId.value,
+                  handleSaveRecipe: handleSaveRecipe,
+                  isRecipeFavorited: isRecipeFavorited,
+                  removeRecipe: removeRecipe,
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    });
   }
 }
